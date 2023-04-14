@@ -19,4 +19,5 @@ pip3 install pygame
 
 Windows 安装：                    
 python3 get-pip.py                        
-pip install pygame                                
+pip install pygame                                                     
+P.S 最近学业繁忙。断更三个礼拜                  
