@@ -39,7 +39,7 @@ from pygame import RESIZABLE
  *    又看源码，看你妹妹呀！
 '''
 
-
+'''
 def follow():
     pygame.display.init()
     screen = pygame.display.set_mode((500, 800), RESIZABLE)
@@ -59,6 +59,7 @@ def follow():
         pygame.draw.circle(screen, [255, 0, 0], [x, y], 10)
 
 ### main programme###
+'''
 
 
 class entrance(object):
@@ -218,63 +219,65 @@ class entrance(object):
             except:
                 return None
             return False
+
     def colorChooser(screen):
         '''
         简陋的选色器
         '''
-        r=0
-        b=0
-        g=0
+        r = 0
+        b = 0
+        g = 0
         running = True
-        x=0
-        y=0
+        x = 0
+        y = 0
         down = False
         while running:
-            for event in  pygame.event.get() :
+            for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     quit()
                 if event.type == pygame.MOUSEMOTION:
-                    x,y = pygame.mouse.get_pos()
+                    x, y = pygame.mouse.get_pos()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     down = True
                 if event.type == pygame.MOUSEBUTTONUP:
                     down = False
                     if x > 10 and x < 490 and y > 410 and y < 490:
-                        return [r,g,b]
+                        return [r, g, b]
                 if down:
-                    x,y = pygame.mouse.get_pos()
+                    x, y = pygame.mouse.get_pos()
                     if x >= 20 and x <= 220:
                         print("True")
                         if y >= 25 and y <= 55:
                             r = x-20
-                        if y >= 55 and y <= 65 :
+                        if y >= 55 and y <= 65:
                             g = x-20
                         if y >= 85 and y <= 95:
                             print(y)
                             b = x-20
-            screen.fill([r,g,b])
-            pygame.draw.rect(screen,[155,155,155],[20,8,200,104])
-            pygame.draw.circle(screen,[155,155,155],[20,20],12)
-            pygame.draw.circle(screen,[155,155,155],[220,20],12)
-            pygame.draw.circle(screen,[155,155,155],[220,100],12)
-            pygame.draw.circle(screen,[155,155,155],[20,100],12)
-            pygame.draw.rect(screen,[155,155,155],[8,20,12,80])
-            pygame.draw.rect(screen,[155,155,155],[220,20,12,80])
-            pygame.draw.rect(screen,[255,235,235],[20,25,200,16])
-            pygame.draw.rect(screen,[235,255,235],[20,55,200,16])
-            pygame.draw.rect(screen,[235,235,255],[20,85,200,16])
-            pygame.draw.circle(screen,[255,235,235],[20,33],8)
-            pygame.draw.circle(screen,[235,255,235],[20,63],8)
-            pygame.draw.circle(screen,[235,235,255],[20,93],8)
-            pygame.draw.circle(screen,[255,235,235],[220,33],8)
-            pygame.draw.circle(screen,[235,255,235],[220,63],8)
-            pygame.draw.circle(screen,[235,235,255],[220,93],8)
-            pygame.draw.circle(screen,[r,g,b],[20+r,33],8)
-            pygame.draw.circle(screen,[r,g,b],[20+g,63],8)
-            pygame.draw.circle(screen,[r,g,b],[20+b,93],8)
-            pygame.draw.rect(screen,[155,155,155],[10,420,480,70])
+            screen.fill([r, g, b])
+            pygame.draw.rect(screen, [155, 155, 155], [20, 8, 200, 104])
+            pygame.draw.circle(screen, [155, 155, 155], [20, 20], 12)
+            pygame.draw.circle(screen, [155, 155, 155], [220, 20], 12)
+            pygame.draw.circle(screen, [155, 155, 155], [220, 100], 12)
+            pygame.draw.circle(screen, [155, 155, 155], [20, 100], 12)
+            pygame.draw.rect(screen, [155, 155, 155], [8, 20, 12, 80])
+            pygame.draw.rect(screen, [155, 155, 155], [220, 20, 12, 80])
+            pygame.draw.rect(screen, [255, 235, 235], [20, 25, 200, 16])
+            pygame.draw.rect(screen, [235, 255, 235], [20, 55, 200, 16])
+            pygame.draw.rect(screen, [235, 235, 255], [20, 85, 200, 16])
+            pygame.draw.circle(screen, [255, 235, 235], [20, 33], 8)
+            pygame.draw.circle(screen, [235, 255, 235], [20, 63], 8)
+            pygame.draw.circle(screen, [235, 235, 255], [20, 93], 8)
+            pygame.draw.circle(screen, [255, 235, 235], [220, 33], 8)
+            pygame.draw.circle(screen, [235, 255, 235], [220, 63], 8)
+            pygame.draw.circle(screen, [235, 235, 255], [220, 93], 8)
+            pygame.draw.circle(screen, [r, g, b], [20+r, 33], 8)
+            pygame.draw.circle(screen, [r, g, b], [20+g, 63], 8)
+            pygame.draw.circle(screen, [r, g, b], [20+b, 93], 8)
+            pygame.draw.rect(screen, [155, 155, 155], [10, 420, 480, 70])
             pygame.display.update()
+
     def switch(situation, pos, text, position):
         entrance.draw_switch(
             situation, [pos[0]+360, pos[1]+10], position=position)
@@ -310,7 +313,15 @@ class entrance(object):
             return 1
         else:
             return 0
-
+    # Doing: ScrolledBar
+    # position is the length the texts scrolled up
+    # pos is the pos if th e bar
+    # length is the length if the scrolledbar
+    '''def scrolledBar(pos,length,position):
+        pygame.draw.rect(programme.screen,[200,100,100],[pos[0],pos[1],20,500])
+        buttonHeight = int(2500/length)
+        buttonPos = int(-position * 500/length)
+        pygame.draw.rect(programme.screen,[220,100,100],[pos[0],pos[1],20,buttonHeight])'''
     def setting():
         tools.ui.switchAnimation()
         position = 0
@@ -325,19 +336,24 @@ class entrance(object):
             entrance.switch(programme.god, pos=(40, 100),
                             text="作弊模式", position=position)
             entrance.draw_addbox(programme.player1_bullet,
-                                 (40, 150), "玩家一子弹数量", position)
+                                 (40, 150+position), "玩家一子弹数量", position)
             entrance.draw_addbox(programme.player2_bullet,
-                                 (40, 200), "玩家二子弹数量", position)
+                                 (40, 200+position), "玩家二子弹数量", position)
             entrance.draw_addbox(programme.movAmount,
                                  (40, 250,), "敌人移动速度", position=position)
-            entrance.print_screen("玩家机身颜色",(40,300),color='white')
-            entrance.print_screen("玩家机翼颜色",(40,350),color='white')
+            entrance.print_screen("玩家机身颜色", (40, 300+position), color='white')
+            entrance.print_screen("玩家机翼颜色", (40, 350+position), color='white')
+            pygame.draw.rect(programme.screen, programme.planeColor_player, [
+                             365, 300+position, 80, 40])
+            pygame.draw.rect(programme.screen, programme.wigColor_player, [
+                             365, 350+position, 80, 40])
+
             for event in pygame.event.get():
                 # 退出检测
                 try:
-                        x, y = pygame.mouse.get_pos()
+                    x, y = pygame.mouse.get_pos()
                 except:
-                        continue
+                    continue
                 if event.type == pygame.QUIT:
                     programme.running = False
                     running = False
@@ -355,17 +371,21 @@ class entrance(object):
                     programme.movAmount += entrance.bind_addbox((40, 250))
                     if get != None:
                         programme.god = get if programme.god != True else False
-                    if x > 10 and x <= 200 and y > 300 and y <= 340:
-                        programme.planeColor_player = entrance.colorChooser(programme.screen)
-                    if x > 10 and x <= 200 and y > 350 and y <= 390:
-                        programme.wigColor_player = entrance.colorChooser(programme.screen)
-                    if x > 10 and x < 50 and y > 10 and y < 40:
+                    if x > 365 and x <= 480 and y > 300+position and y <= 340+position:
+                        programme.planeColor_player = entrance.colorChooser(
+                            programme.screen)
+                    if x > 365 and x <= 480 and y > 350+position and y+position <= 390:
+                        programme.wigColor_player = entrance.colorChooser(
+                            programme.screen)
+                    if x > 10 and x < 50 and y+position > 10 and y+position < 40:
                         tools.ui.switchAnimation()
                         running = False
 
             pygame.display.update()
-    
+
     def entrance():
+        def __init__(self):
+            pass
         while programme.running:
             time.sleep(0.04)
             pygame.draw.rect(programme.screen, [200, 0, 0], [00, 40, 500, 70])
@@ -378,12 +398,10 @@ class entrance(object):
                 "default.ttf", 20)
             programme.screen.blit(programme.font.render(
                 f"{programme.version}", True, 'white'), (0, 470))
-            entrance.draw_button(pos=410, type='inactive')
-            entrance.print_screen("设置",(220,420))
-            entrance.draw_button(pos=410, type='inactive')
-            entrance.print_screen("设置",(220,420))
+            entrance.draw_button(pos=410, type='active')
+            entrance.print_screen("设置", (220, 420))
             entrance.draw_button(type='inactive')
-            entrance.draw_button(pos=320,type = 'inactive')   
+            entrance.draw_button(pos=320, type='active')
             entrance.print_screen("单人模式")
             entrance.print_screen("双人模式", (210, 330))
             pygame.draw.rect(programme.screen, [200, 0, 0], [00, 40, 500, 70])
@@ -424,43 +442,13 @@ class entrance(object):
                         x, y = pygame.mouse.get_pos()
                     except:
                         continue
-                    # 按钮与用户交互
-                    if x >= 100 and x <= 400:
-                        if y >= 240 and y <= 310:
-                            # 单人模式
-                            entrance.draw_button(pos=250)
-                            # 显示文字
-                            entrance.print_screen(
-                                "单人模式", )
-                        elif y > 320 and y <= 390:
 
-                            entrance.draw_button(pos=320)
-                            # 显示文字
-                            entrance.print_screen(
-                                "双人模式", (210, 330))
-                        elif y > 410 and y < 490:
-                            entrance.draw_button(pos=410, type='active')
-                            entrance.print_screen("设置",(220,420))
-                        else:
-                            entrance.draw_button(pos=250, type='inactive')
-                            # 双人模式
-                            entrance.draw_button(pos=320, type='inactive')
-                            # 显示文字
-                            entrance.print_screen("单人模式")
-                            entrance.print_screen(
-                                "双人模式", (210, 330))
-                else:
-                    entrance.draw_button(pos=410, type='inactive')
-                    entrance.print_screen("设置",(220,420))
-                    entrance.draw_button(type='inactive')
-                    entrance.draw_button(pos=320,type = 'inactive')   
-                    entrance.print_screen("单人模式")
-                    entrance.print_screen("双人模式", (210, 330))
             pygame.display.update()
 
 
 if __name__ == '__main__':
     from init import init
+    print("hello")
     init.__init__()
     entrance.init_entrance()
     entrance.entrance()

@@ -19,36 +19,54 @@ import _thread
 ''''
 别动,ui,检测,update模块都在这里
 '''
+
+
 class tools(object):
+    class file(object):
+        def readFile(name: str, startRow: int = 0, endRow: int = 1) -> str:
+            result = ''
+
+            with open(name, mode='r') as file:
+                fileList = []
+                fileList = file.readlines()
+                if endRow > len(fileList):
+                    endRow = len(fileList)
+                for index in range(0, endRow):
+                    if index >= startRow:
+                        result += fileList[index]
+                        continue
+
+            return result
+
     class ui(object):
         def movAnimation(player=0, side=0):
             if player == 0:
                 if side == 0:
                     i = 0
                     for i in range(5):
-                        programme.screen.fill([0,0,0])
+                        programme.screen.fill([0, 0, 0])
                         programme.player1_x += i
                         tools.ui.aircraft_1()
                         pygame.display.update()
                 if side == 1:
                     i = 0
-                    for  i in range(5):
-                        programme.screen.fill([0,0,0])
+                    for i in range(5):
+                        programme.screen.fill([0, 0, 0])
                         programme.player1_x -= i
                         tools.ui.aircraft_1()
                         pygame.display.update()
-                        
+
             if player == 1:
                 if side == 0:
                     for i in range(5):
-                        programme.screen.fill([0,0,0])
+                        programme.screen.fill([0, 0, 0])
                         time.sleep(0.01)
                         programme.player2_x += i
                         tools.ui.player2Aircraft()
                         pygame.display.update()
                 if side == 1:
                     for i in range(5):
-                        programme.screen.fill([0,0,0])
+                        programme.screen.fill([0, 0, 0])
                         time.sleep(0.01)
                         programme.player2_x -= i
                         tools.ui.player2Aircraft()
@@ -67,11 +85,11 @@ class tools(object):
                 programme.player1_x+20, programme.player1_y+15, 12, 10])
             pygame.draw.rect(programme.screen, programme.wigColor_player, [
                 programme.player1_x+5, programme.player1_y+31, 20, 3])
-            
+
         def enemyAircraft(index):
             # 机身 192,192,192
             # 机翼 178,34,34
-            
+
             pygame.draw.rect(programme.screen, programme.planeColor_enemy, [
                 programme.enemy_x_list[index]+3, programme.enemy_y_list[index], 22, 3])
             pygame.draw.rect(programme.screen, programme.planeColor_enemy, [
@@ -82,9 +100,9 @@ class tools(object):
                 programme.enemy_x_list[index]+20, programme.enemy_y_list[index]+10, 12, 10])
             pygame.draw.circle(programme.screen, programme.planeColor_enemy, [
                 programme.enemy_x_list[index]+15, programme.enemy_y_list[index]+35], 5)
-            pygame.draw.rect(programme.screen, [0,0,0], [
+            pygame.draw.rect(programme.screen, [0, 0, 0], [
                 programme.enemy_x_list[index]+3, programme.enemy_y_list[index]+2, 22, 3])
-            pygame.draw.rect(programme.screen, [255,0,0], [
+            pygame.draw.rect(programme.screen, [255, 0, 0], [
                 programme.enemy_x_list[index]+2, programme.enemy_y_list[index]-programme.movAmount-3, int(programme.enemyLifeList[index]/4), 3])
 
         def player2Aircraft():
@@ -98,16 +116,17 @@ class tools(object):
                 programme.player2_x+20, programme.player2_y+15, 12, 10])
             pygame.draw.rect(programme.screen, programme.wigColor_player, [
                 programme.player2_x+5, programme.player2_y+31, 20, 3])
-            pygame.draw.rect(programme.screen, [255,0,0], [
-                programme.player2_x, programme.player2_y+39, int( programme.player2_life/3), 2])
+            pygame.draw.rect(programme.screen, [255, 0, 0], [
+                programme.player2_x, programme.player2_y+39, int(programme.player2_life/3), 2])
+
         def medicine(index):
             pygame.draw.rect(programme.screen, [255, 255, 255], [
-                programme.medicineX[index],programme.medicineY[index], 20, 20])
+                programme.medicineX[index], programme.medicineY[index], 20, 20])
             pygame.draw.rect(programme.screen, [255, 0, 0], [
                 programme.medicineX[index]+2, programme.medicineY[index]+8, 16, 4])
             pygame.draw.rect(programme.screen, [255, 0, 0], [
                 programme.medicineX[index]+8, programme.medicineY[index]+3, 4, 16])
-            
+
         def switchAnimation():
             fillPos = 0
             while fillPos <= 500:
@@ -116,8 +135,9 @@ class tools(object):
                     0, fillPos, 500, 100])
                 fillPos += 10
                 pygame.display.update()
+
         def drawString(index):
-            if programme.mode=='normal':
+            if programme.mode == 'normal':
                 width = 3
             elif programme.mode == 'artillery':
                 width = 4
@@ -127,42 +147,45 @@ class tools(object):
                 width = 6
             try:
                 pygame.draw.rect(programme.screen, programme.AttackColor, [
-                    programme.attackStringX[index], programme.attackStringY[index]+10, width , 10])
+                    programme.attackStringX[index], programme.attackStringY[index]+10, width, 10])
             except:
                 pass
 
         def bloodDock(player):
-                pygame.draw.rect(programme.screen,[128,128,128],[20,10,460,50])
-                pygame.draw.circle(programme.screen,[128,128,128],[20,20],10)
-                pygame.draw.circle(programme.screen,[128,128,128],[480,20],10)
-                pygame.draw.circle(programme.screen,[128,128,128],[20,50],10)
-                pygame.draw.circle(programme.screen,[128,128,128],[480,50],10)
-                pygame.draw.rect(programme.screen,[128,128,128],[10,20,10,35])
-                pygame.draw.rect(programme.screen,[128,128,128],[480,20,10,35])
-                
-                text = programme.font.render(
-                    f"{programme.player1_life}", True, 'white')
-                programme.screen.blit(text, (programme.screenWidth - 270, 20))
-                text = programme.font.render(
-                    f"{programme.score}", True, "white")
-                programme.screen.blit(text, (30, 20))
-                pygame.draw.rect(programme.screen, [255, 0, 0], [
-                    programme.screenWidth-220, 20, programme.player1_life, 20])
-                pygame.draw.rect(programme.screen, [200, 200, 200], [
-                    programme.screenWidth-40, 20, 10, 20])
-                text = programme.font.render(
-                    f"{programme.player1_bullet}", True, "white")
-                programme.screen.blit(text, (programme.screenWidth-90, 20))
-                text = programme.font.render(
-                    f"{programme.mode}", True, "white")
-                programme.screen.blit(text, (70, 20))
-            
+            pygame.draw.rect(programme.screen, [
+                             128, 128, 128], [20, 10, 460, 50])
+            pygame.draw.circle(programme.screen, [128, 128, 128], [20, 20], 10)
+            pygame.draw.circle(programme.screen, [
+                               128, 128, 128], [480, 20], 10)
+            pygame.draw.circle(programme.screen, [128, 128, 128], [20, 50], 10)
+            pygame.draw.circle(programme.screen, [
+                               128, 128, 128], [480, 50], 10)
+            pygame.draw.rect(programme.screen, [
+                             128, 128, 128], [10, 20, 10, 35])
+            pygame.draw.rect(programme.screen, [
+                             128, 128, 128], [480, 20, 10, 35])
+
+            text = programme.font.render(
+                f"{programme.player1_life}", True, 'white')
+            programme.screen.blit(text, (programme.screenWidth - 270, 20))
+            text = programme.font.render(
+                f"{programme.score}", True, "white")
+            programme.screen.blit(text, (30, 20))
+            pygame.draw.rect(programme.screen, [255, 0, 0], [
+                programme.screenWidth-220, 20, programme.player1_life, 20])
+            pygame.draw.rect(programme.screen, [200, 200, 200], [
+                programme.screenWidth-40, 20, 10, 20])
+            text = programme.font.render(
+                f"{programme.player1_bullet}", True, "white")
+            programme.screen.blit(text, (programme.screenWidth-90, 20))
+            text = programme.font.render(
+                f"{programme.mode}", True, "white")
+            programme.screen.blit(text, (70, 20))
+
     class bind(object):
 
         def watch(times):
-            colorPlus = 70-programme.planeColor_player[0]
             if programme.god == True:
-                score = 10000
                 programme.crash = 0
                 programme.hit = 5
                 programme.attack = 0
@@ -180,10 +203,12 @@ class tools(object):
                 programme.stone = 1
                 programme.cure = 50
                 programme.stringMov = 10
-            if len(programme.enemy_x_list) >=2 and times % 2 == 0:
-                index = random.randint(0,len(programme.enemy_x_list))
-                programme.otherAttack_x.append(programme.enemy_x_list[index-1]+13)
-                programme.otherAttack_y.append(programme.enemy_y_list[index-1]+50)
+            if len(programme.enemy_x_list) >= 2 and times % 2 == 0:
+                index = random.randint(0, len(programme.enemy_x_list))
+                programme.otherAttack_x.append(
+                    programme.enemy_x_list[index-1]+13)
+                programme.otherAttack_y.append(
+                    programme.enemy_y_list[index-1]+50)
             if programme.mov == True:
                 if programme.movDirect == 0:
                     programme.player1_x -= 5
@@ -248,8 +273,7 @@ class tools(object):
                         print("YOU LOSE")
                     else:
                         tools.egg.mainProgramme()
-                        programme.screen.quit()
-                        quit()
+                        programme.message.append("egg")
             return times
 
         def keyEvent(event):
@@ -285,9 +309,9 @@ class tools(object):
                         programme.player1_bullet -= 1
             if programme.player2 and programme.player2_life > 0:
                 if event.key == pygame.K_a:
-                    programme.player2_x-=1
+                    programme.player2_x -= 1
                 if event.key == pygame.K_d:
-                    programme.player2_x +=1
+                    programme.player2_x += 1
                 if event.key == pygame.K_w:
                     if programme.player2_bullet:
                         if programme.player2_x != programme.player1_x:
@@ -354,7 +378,6 @@ class tools(object):
                 programme.starXList.insert(
                     0, random.randint(0, programme.screenWidth))
                 indexStar += 1
-            
 
         def updateString_mov():
             index = 0
@@ -609,6 +632,7 @@ class tools(object):
             tools.update.bind_medicine()
             tools.update.bind_stone()
 #################################################################
+
     class egg(object):
         def grvaity(color):
 
@@ -677,7 +701,7 @@ class tools(object):
                     (programme.player1_x-15, programme.player1_y +
                      66), (programme.player1_x-25, programme.player1_y+66),
                     (programme.player1_x-20, programme.player1_y+programme.length)])
-        
+
         def mainProgramme():
             colorTimes = 0
             programme.running = True
@@ -701,7 +725,7 @@ class tools(object):
                 tools.egg.fuel(color)
                 loopTimes = tools.egg.watch_egg(loopTimes)
                 if programme.player1_y <= 200:
-                    programme.player1_y =0
+                    programme.player1_y = 0
                 if programme.gravity <= 0:
                     programme.gravity = 0
                 if programme.gravity >= 9.80:
@@ -740,44 +764,51 @@ class programme:
             index = 0
             while index >= 0 and index < len(programme.attackStringX):
                 tools.ui.drawString(index)
-                index +=1
+                index += 1
+
         def ememyString():
             index = 0
             while index < len(programme.otherAttack_x):
                 pygame.draw.rect(programme.screen, [0, 255, 0], [
                     programme.otherAttack_x[index], programme.otherAttack_y[index], 3, 10])
-                index +=1
+                index += 1
+
         def medicine():
             index = 0
             while index >= 0 and index < len(programme.medicineX):
                 tools.ui.medicine(index)
-                index +=1
+                index += 1
+
         def stone():
             index_stone = 0
             while index_stone < len(programme.stoneXList) and index_stone >= 0:
                 pygame.draw.rect(programme.screen, [255, 255, 255], [
                     programme.stoneXList[index_stone], programme.stoneYList[index_stone], 20, 20])
-                index_stone +=1
+                index_stone += 1
+
         def enemy():
             index = 0
             while index >= 0 and index < len(programme.enemy_x_list):
                 tools.ui.enemyAircraft(index)
-                index +=1
-    def graphics(a,player2 = False):
+                index += 1
+
+    def graphics(a, player2=False):
         programme.player2 = player2
         tools.ui.switchAnimation()
         index = 0
         while programme.running:
             time.sleep(0.08)
             for message in programme.message:
-
+                if message == 'egg':
+                    while True:
+                        time.sleep(100)
                 if message == 'switch':
                     tools.ui.switchAnimation()
                     del programme.message[index]
                     continue
-                
-                index +=1
-            programme.screen.fill([0,0,0])
+
+                index += 1
+            programme.screen.fill([0, 0, 0])
             if player2:
                 tools.ui.bloodDock(0)
             tools.ui.bloodDock(1)
@@ -791,26 +822,25 @@ class programme:
             programme.graphic_update.stone()
             programme.graphic_update.enemy()
             pygame.display.update()
-            
-            
+
     def main(player2=False):
         """
         plane War
         """
-        
 
         # 显示玩家血量
         times = 0
         programme.running = True
-        _thread.start_new_thread(programme.graphics,(False,programme.player2))
+        _thread.start_new_thread(
+            programme.graphics, (False, programme.player2))
         while programme.running:
             programme.screenWidth = pygame.display.get_window_size()[0]
             programme.screenHeight = pygame.display.get_window_size()[1]
-            
+
             if not programme.playing:
                 pygame.quit()
                 break
-            
+
             if programme.player2:
                 programme.player2_y = programme.screenHeight - 45
             programme.player1_y = programme.screenHeight - 90
@@ -829,4 +859,3 @@ class programme:
                 if event.type == pygame.KEYDOWN:
                     tools.bind.keyEvent(event)
             tools.update.update()
-            

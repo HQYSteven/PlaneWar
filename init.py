@@ -15,10 +15,9 @@ from tools import tools, programme
 
 class init(object):
     def __init__():
-        global running 
-        running = True
+
         # 运行指示量
-        programme.running = running
+        programme.running = True
         init.init_modules()
         init.init_planeAmount()
         init.init_players()
@@ -30,7 +29,7 @@ class init(object):
         init.init_stars()
         init.init_fps()
         init.init_egg()
-        programme.god = False 
+        programme.god = False
         init.initStone()
 
     def init_gui():
@@ -55,6 +54,7 @@ class init(object):
         # init pygame music player
         pygame.mixer.init()
         pygame.key.set_repeat(3, 25)
+
     def init_medicine():
         programme.medicineAmount = 20
         programme.medicineX = []
@@ -102,7 +102,7 @@ class init(object):
         programme.length = 90
         programme.lostFuel = False
         programme.lost = 0.000001
-        programme.launcher = [248,248,255]
+        programme.launcher = [248, 248, 255]
         programme.fuel = 1
 
     def init_enemy():
@@ -118,11 +118,11 @@ class init(object):
         programme.wigColor_player = [131, 206, 250]
         programme.planeColor_enemy = [192, 192, 192]
         programme.wigColor_enemy = [178, 34, 34]
-        programme.planeAmount =random.randint(10, 30)
+        programme.planeAmount =  random.randint(10, 30)
         programme.speed = 0
 
     def init_screen():
-        programme.message=[]
+        programme.message = []
         programme.font = pygame.font.Font(
             "default.ttf", 20)
         programme.screen = pygame.display.set_mode((500, 500))
@@ -139,8 +139,6 @@ class init(object):
 
     def init_players():
         programme.fire = [255, 0, 0]
-        programme.movDirect = 0
-        programme.movLength = 1
         programme.playing = True
         programme.player1_life = 100
         programme.player2_life = 100
