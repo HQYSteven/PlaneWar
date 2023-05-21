@@ -56,6 +56,7 @@ class init(object):
         pygame.key.set_repeat(3, 25)
 
     def init_medicine():
+        programme.stringMov = 5
         programme.medicineAmount = 20
         programme.medicineX = []
         programme.medicineY = []

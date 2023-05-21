@@ -2,6 +2,7 @@ import pygame
 import time
 import random
 import _thread
+from blur import blur
 '''
  * You may think you know what the following code does.
  * But you don't. Trust me.
@@ -152,19 +153,6 @@ class tools(object):
                 pass
 
         def bloodDock(player):
-            pygame.draw.rect(programme.screen, [
-                             128, 128, 128], [20, 10, 460, 50])
-            pygame.draw.circle(programme.screen, [128, 128, 128], [20, 20], 10)
-            pygame.draw.circle(programme.screen, [
-                               128, 128, 128], [480, 20], 10)
-            pygame.draw.circle(programme.screen, [128, 128, 128], [20, 50], 10)
-            pygame.draw.circle(programme.screen, [
-                               128, 128, 128], [480, 50], 10)
-            pygame.draw.rect(programme.screen, [
-                             128, 128, 128], [10, 20, 10, 35])
-            pygame.draw.rect(programme.screen, [
-                             128, 128, 128], [480, 20, 10, 35])
-
             text = programme.font.render(
                 f"{programme.player1_life}", True, 'white')
             programme.screen.blit(text, (programme.screenWidth - 270, 20))
@@ -791,13 +779,29 @@ class programme:
             while index >= 0 and index < len(programme.enemy_x_list):
                 tools.ui.enemyAircraft(index)
                 index += 1
-
+        def blurdock():
+            blurl = []
+            x=10
+            y = 10
+            for y in range(20,55):
+                for x in range(10,480):
+                    blurl.append(pygame.Surface.get_at(programme.screen,(x,y)))
+            self = blur(blurl,460)
+            after = blur.blur(self)
+            x = 10
+            y = 20
+            for l in after:
+                pygame.draw.rect(programme.screen,l,[x,y,1,1])
+                if x == 480:
+                    y +=1
+                    x = 10
+                x +=1
     def graphics(a, player2=False):
         programme.player2 = player2
         tools.ui.switchAnimation()
         index = 0
         while programme.running:
-            time.sleep(0.08)
+            
             for message in programme.message:
                 if message == 'egg':
                     while True:
@@ -809,20 +813,24 @@ class programme:
 
                 index += 1
             programme.screen.fill([0, 0, 0])
-            if player2:
-                tools.ui.bloodDock(0)
-            tools.ui.bloodDock(1)
-            tools.ui.aircraft_1()
+            
+            
             if programme.player2:
                 tools.ui.player2Aircraft()
             programme.graphic_update.string()
             programme.graphic_update.ememyString()
             programme.graphic_update.medicine()
             tools.update.updateStars()
+            
             programme.graphic_update.stone()
             programme.graphic_update.enemy()
+            programme.graphic_update.blurdock()
+            if player2:
+                tools.ui.bloodDock(0)
+            tools.ui.bloodDock(1)
+            tools.ui.aircraft_1()
             pygame.display.update()
-
+    
     def main(player2=False):
         """
         plane War
