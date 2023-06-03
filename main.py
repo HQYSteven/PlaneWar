@@ -58,160 +58,160 @@ def follow():
         x, y = pygame.mouse.get_pos()
         pygame.draw.circle(screen, [255, 0, 0], [x, y], 10)
 
-### main programme###
+### main self###
 '''
 
 
 class entrance(object):
-    def startPage():
-        programme.screen.fill([0, 0, 0])
-        programme.font = pygame.font.Font(
+    def startPage(self):
+        self.screen.fill([0, 0, 0])
+        self.font = pygame.font.Font(
             "default.ttf", 70)
-        programme.screen.blit(programme.font.render(
+        self.screen.blit(self.font.render(
             f"Plane", True, 'WHITE'), (150, 50))
-        programme.screen.blit(programme.font.render(
+        self.screen.blit(self.font.render(
             f"War", True, 'WHITE'), (180, 130))
         # 重新设置字体
-        programme.font = pygame.font.Font(
+        self.font = pygame.font.Font(
             "default.ttf", 20)
-        programme.screen.blit(programme.font.render(
-            f"{programme.version}", True, 'white'), (0, 470))
+        self.screen.blit(self.font.render(
+            f"{self.version}", True, 'white'), (0, 470))
         pygame.display.update()
 
-    def init_entrance():
-        pygame.display.set_caption(f"Plane War{programme.version}")
+    def init_entrance(self):
+        pygame.display.set_caption(f"Plane War{self.version}")
         # 初始化屏幕为黑色
-        entrance.startPage()
-        tools.ui.switchAnimation()
+        entrance.startPage(self,)
+        tools.ui.switchAnimation(self,)
         # 显示标题&&标题背景
 
-    def draw_button(pos=250, type='active'):
+    def draw_button(self,pos=250, type='active'):
         if type == 'active':
-            pygame.draw.rect(programme.screen, [135, 206, 250], [
+            pygame.draw.rect(self.screen, [135, 206, 250], [
                 100, pos, 300, 50])
             pygame.draw.circle(
-                programme.screen, [135, 206, 250], [100, pos+20], 20)
+                self.screen, [135, 206, 250], [100, pos+20], 20)
             pygame.draw.circle(
-                programme.screen, [135, 206, 250], [400, pos+30], 20)
+                self.screen, [135, 206, 250], [400, pos+30], 20)
             pygame.draw.circle(
-                programme.screen, [135, 206, 250], [100, pos+30], 20)
+                self.screen, [135, 206, 250], [100, pos+30], 20)
             pygame.draw.circle(
-                programme.screen, [135, 206, 250], [400, pos+20], 20)
+                self.screen, [135, 206, 250], [400, pos+20], 20)
         if type == 'inactive':
-            pygame.draw.rect(programme.screen, [135, 206, 235], [
+            pygame.draw.rect(self.screen, [135, 206, 235], [
                 100, 250, 300, 50])
             pygame.draw.circle(
-                programme.screen, [135, 206, 235], [100, 270], 20)
+                self.screen, [135, 206, 235], [100, 270], 20)
             pygame.draw.circle(
-                programme.screen, [135, 206, 235], [400, 280], 20)
+                self.screen, [135, 206, 235], [400, 280], 20)
             pygame.draw.circle(
-                programme.screen, [135, 206, 235], [100, 280], 20)
+                self.screen, [135, 206, 235], [100, 280], 20)
             pygame.draw.circle(
-                programme.screen, [135, 206, 235], [400, 270], 20)
+                self.screen, [135, 206, 235], [400, 270], 20)
 
-    def cover_button(pos=250):
-        pygame.draw.rect(programme.screen, [0, 0, 0], [
+    def cover_button(self,pos=250):
+        pygame.draw.rect(self.screen, [0, 0, 0], [
             100, pos, 300, 50])
         pygame.draw.circle(
-            programme.screen, [0, 0, 0], [100, pos+20], 20)
+            self.screen, [0, 0, 0], [100, pos+20], 20)
         pygame.draw.circle(
-            programme.screen, [0, 0, 0], [400, pos+30], 20)
+            self.screen, [0, 0, 0], [400, pos+30], 20)
         pygame.draw.circle(
-            programme.screen, [0, 0, 0], [100, pos+30], 20)
+            self.screen, [0, 0, 0], [100, pos+30], 20)
         pygame.draw.circle(
-            programme.screen, [0, 0, 0], [400, pos+20], 20)
+            self.screen, [0, 0, 0], [400, pos+20], 20)
 
-    def print_screen(string="", pos=(210, 260), color='black'):
-        programme.screen.blit(programme.font.render(
+    def print_screen(self,string="", pos=(210, 260), color='black'):
+        self.screen.blit(self.font.render(
             string, True, color), pos)
 
-    def draw_star():
+    def draw_star(self,):
         minAmount = 0
         indexStar = 0
         while indexStar < 50:
-            pygame.draw.rect(programme.screen, [0, 0, 0], [
-                programme.starXList[indexStar], programme.starYList[indexStar], 1, 1])
+            pygame.draw.rect(self.screen, [0, 0, 0], [
+                self.starXList[indexStar], self.starYList[indexStar], 1, 1])
             indexStar += 1
         indexStar = 0
         while indexStar < 50:
-            programme.starYList[indexStar] += programme.movAmount
+            self.starYList[indexStar] += self.movAmount
             indexStar += 1
         indexStar = 0
         while indexStar < 50:
-            pygame.draw.rect(programme.screen, [255, 255, 255], [
-                programme.starXList[indexStar], programme.starYList[indexStar], 1, 1])
+            pygame.draw.rect(self.screen, [255, 255, 255], [
+                self.starXList[indexStar], self.starYList[indexStar], 1, 1])
             indexStar += 1
         indexStar = 0
         for i in range(50):
-            if programme.starYList[indexStar] > programme.screenHeight:
+            if self.starYList[indexStar] > self.screenHeight:
                 minAmount += 1
-                del programme.starYList[indexStar]
-                del programme.starXList[indexStar]
+                del self.starYList[indexStar]
+                del self.starXList[indexStar]
                 indexStar -= 1
             indexStar += 1
-        programme.starYList = programme.starYList[:50-minAmount]
-        programme.starXList = programme.starXList[:50-minAmount]
+        self.starYList = self.starYList[:50-minAmount]
+        self.starXList = self.starXList[:50-minAmount]
         indexStar = 0
         while indexStar < minAmount:
-            programme.starYList.insert(0, random.randint(0, 15))
-            programme.starXList.insert(
-                0, random.randint(0, programme.screenWidth))
+            self.starYList.insert(0, random.randint(0, 15))
+            self.starXList.insert(
+                0, random.randint(0, self.screenWidth))
             indexStar += 1
 
-    def button_setting(type='inactive'):
+    def button_setting(self,type='inactive'):
         if type == "inactive":
-            pygame.draw.rect(programme.screen, [135, 206, 235], [
+            pygame.draw.rect(self.screen, [135, 206, 235], [
                 460, 450, 30, 30])
             pygame.draw.circle(
-                programme.screen, [135, 206, 235], [490, 453], 3)
+                self.screen, [135, 206, 235], [490, 453], 3)
             pygame.draw.circle(
-                programme.screen, [135, 206, 235], [460, 453], 3)
+                self.screen, [135, 206, 235], [460, 453], 3)
             pygame.draw.circle(
-                programme.screen, [135, 206, 235], [490, 477], 3)
+                self.screen, [135, 206, 235], [490, 477], 3)
             pygame.draw.circle(
-                programme.screen, [135, 206, 235], [460, 477], 3)
-            pygame.draw.rect(programme.screen, [135, 206, 235], [
+                self.screen, [135, 206, 235], [460, 477], 3)
+            pygame.draw.rect(self.screen, [135, 206, 235], [
                 457, 453, 3, 24])
-            pygame.draw.rect(programme.screen, [135, 206, 235], [
+            pygame.draw.rect(self.screen, [135, 206, 235], [
                 490, 453, 3, 24])
         if type == "active":
-            pygame.draw.rect(programme.screen, [135, 206, 250], [
+            pygame.draw.rect(self.screen, [135, 206, 250], [
                 460, 450, 30, 30])
             pygame.draw.circle(
-                programme.screen, [135, 206, 250], [490, 453], 3)
+                self.screen, [135, 206, 250], [490, 453], 3)
             pygame.draw.circle(
-                programme.screen, [135, 206, 250], [460, 453], 3)
+                self.screen, [135, 206, 250], [460, 453], 3)
             pygame.draw.circle(
-                programme.screen, [135, 206, 250], [490, 477], 3)
+                self.screen, [135, 206, 250], [490, 477], 3)
             pygame.draw.circle(
-                programme.screen, [135, 206, 250], [460, 477], 3)
-            pygame.draw.rect(programme.screen, [135, 206, 250], [
+                self.screen, [135, 206, 250], [460, 477], 3)
+            pygame.draw.rect(self.screen, [135, 206, 250], [
                 457, 453, 3, 24])
-            pygame.draw.rect(programme.screen, [135, 206, 250], [
+            pygame.draw.rect(self.screen, [135, 206, 250], [
                 490, 453, 3, 24])
 
-    def draw_switch(situation, pos, position):
+    def draw_switch(self,situation, pos, position):
         if position + pos[1] >= 50:
             if situation == True:
-                pygame.draw.circle(programme.screen, [200, 100, 100], [
+                pygame.draw.circle(self.screen, [200, 100, 100], [
                                    pos[0], pos[1]+5+position], 12)
-                pygame.draw.circle(programme.screen, [200, 100, 100], [
+                pygame.draw.circle(self.screen, [200, 100, 100], [
                                    pos[0]+20, pos[1]+5+position], 12)
-                pygame.draw.rect(programme.screen, [200, 100, 100], [
+                pygame.draw.rect(self.screen, [200, 100, 100], [
                                  pos[0], pos[1]-7+position, 20, 24])
-                pygame.draw.circle(programme.screen, [255, 255, 255], [
+                pygame.draw.circle(self.screen, [255, 255, 255], [
                                    pos[0]+20, pos[1]+5+position], 8)
             if situation == False:
-                pygame.draw.circle(programme.screen, [100, 100, 100], [
+                pygame.draw.circle(self.screen, [100, 100, 100], [
                                    pos[0], pos[1]+5+position], 12)
-                pygame.draw.circle(programme.screen, [100, 100, 100], [
+                pygame.draw.circle(self.screen, [100, 100, 100], [
                                    pos[0]+20, pos[1]+5+position], 12)
-                pygame.draw.rect(programme.screen, [100, 100, 100], [
+                pygame.draw.rect(self.screen, [100, 100, 100], [
                                  pos[0], pos[1]-7+position, 20, 24])
-                pygame.draw.circle(programme.screen, [255, 255, 255], [
+                pygame.draw.circle(self.screen, [255, 255, 255], [
                                    pos[0], pos[1]+position+5], 8)
 
-    def bind_switch(event, pos, position):
+    def bind_switch(self,event, pos, position):
         if event.type == pygame.MOUSEBUTTONUP and position + pos[1] >= 30:
             try:
                 if pygame.mouse.get_pos()[0] >= pos[0]-5 and pygame.mouse.get_pos()[0] <= pos[0]+30 and pygame.mouse.get_pos()[1] >= pos[1]-5+position and pygame.mouse.get_pos()[1] <= pos[1]+24+position:
@@ -220,7 +220,7 @@ class entrance(object):
                 return None
             return False
 
-    def colorChooser(screen):
+    def colorChooser(self,screen):
         '''
         简陋的选色器
         '''
@@ -278,31 +278,31 @@ class entrance(object):
             pygame.draw.rect(screen, [155, 155, 155], [10, 420, 480, 70])
             pygame.display.update()
 
-    def switch(situation, pos, text, position):
-        entrance.draw_switch(
+    def switch(self,situation, pos, text, position):
+        entrance.draw_switch(self,
             situation, [pos[0]+360, pos[1]+10], position=position)
-        entrance.print_screen(text, pos, color='white')
+        entrance.print_screen(self,text, pos, color='white')
 
-    def draw_addbox(value, pos, text, position):
-        entrance.print_screen(text, pos, color='white')
+    def draw_addbox(self,value, pos, text, position):
+        entrance.print_screen(self,text, pos, color='white')
         if value <= 0:
-            pygame.draw.rect(programme.screen, [150, 100, 100], [
+            pygame.draw.rect(self.screen, [150, 100, 100], [
                              pos[0]+330, pos[1]+position, 20, 20])
         else:
-            pygame.draw.rect(programme.screen, [200, 100, 100], [
+            pygame.draw.rect(self.screen, [200, 100, 100], [
                              pos[0]+330, pos[1]+position, 20, 20])
-        pygame.draw.rect(programme.screen, [200, 100, 100], [
+        pygame.draw.rect(self.screen, [200, 100, 100], [
                          pos[0]+352, pos[1]+position, 40, 20])
-        pygame.draw.rect(programme.screen, [200, 100, 100], [
+        pygame.draw.rect(self.screen, [200, 100, 100], [
                          pos[0]+394, pos[1]+position, 20, 20])
-        entrance.print_screen(
+        entrance.print_screen(self,
             "-", [pos[0]+335, pos[1]-5+position], color='white')
-        entrance.print_screen(
+        entrance.print_screen(self,
             "+", [pos[0]+398, pos[1]-6+position], color='white')
-        entrance.print_screen(
+        entrance.print_screen(self,
             str(value), [pos[0]+356, pos[1]-4+position], color='white')
 
-    def bind_addbox(pos):
+    def bind_addbox(self,pos):
         try:
             [pos1, pos2] = pygame.mouse.get_pos()
         except:
@@ -318,34 +318,34 @@ class entrance(object):
     # pos is the pos if th e bar
     # length is the length if the scrolledbar
     '''def scrolledBar(pos,length,position):
-        pygame.draw.rect(programme.screen,[200,100,100],[pos[0],pos[1],20,500])
+        pygame.draw.rect(self.screen,[200,100,100],[pos[0],pos[1],20,500])
         buttonHeight = int(2500/length)
         buttonPos = int(-position * 500/length)
-        pygame.draw.rect(programme.screen,[220,100,100],[pos[0],pos[1],20,buttonHeight])'''
-    def setting():
-        tools.ui.switchAnimation()
+        pygame.draw.rect(self.screen,[220,100,100],[pos[0],pos[1],20,buttonHeight])'''
+    def setting(self,):
+        tools.ui.switchAnimation(self,)
         position = 0
         running = True
         while running:
             time.sleep(0.04)
-            programme.screen.fill([0, 0, 0])
-            entrance.draw_star()
-            pygame.draw.rect(programme.screen, [255, 0, 0], [0, 0, 500, 50])
-            entrance.print_screen("Setting", pos=(230, 10), color='white')
-            entrance.print_screen("<", pos=(10, 10), color='white')
-            entrance.switch(programme.god, pos=(40, 100),
+            self.screen.fill([0, 0, 0])
+            entrance.draw_star(self,)
+            pygame.draw.rect(self.screen, [255, 0, 0], [0, 0, 500, 50])
+            entrance.print_screen(self,"Setting", pos=(230, 10), color='white')
+            entrance.print_screen(self,"<", pos=(10, 10), color='white')
+            entrance.switch(self,self.god, pos=(40, 100),
                             text="作弊模式", position=position)
-            entrance.draw_addbox(programme.player1_bullet,
+            entrance.draw_addbox(self,self.player1_bullet,
                                  (40, 150+position), "玩家一子弹数量", position)
-            entrance.draw_addbox(programme.player2_bullet,
+            entrance.draw_addbox(self,self.player2_bullet,
                                  (40, 200+position), "玩家二子弹数量", position)
-            entrance.draw_addbox(programme.movAmount,
+            entrance.draw_addbox(self,self.movAmount,
                                  (40, 250,), "敌人移动速度", position=position)
-            entrance.print_screen("玩家机身颜色", (40, 300+position), color='white')
-            entrance.print_screen("玩家机翼颜色", (40, 350+position), color='white')
-            pygame.draw.rect(programme.screen, programme.planeColor_player, [
+            entrance.print_screen(self,"玩家机身颜色", (40, 300+position), color='white')
+            entrance.print_screen(self,"玩家机翼颜色", (40, 350+position), color='white')
+            pygame.draw.rect(self.screen, self.planeColor_player, [
                              365, 300+position, 80, 40])
-            pygame.draw.rect(programme.screen, programme.wigColor_player, [
+            pygame.draw.rect(self.screen, self.wigColor_player, [
                              365, 350+position, 80, 40])
 
             for event in pygame.event.get():
@@ -355,7 +355,7 @@ class entrance(object):
                 except:
                     continue
                 if event.type == pygame.QUIT:
-                    programme.running = False
+                    self.running = False
                     running = False
                 if event.type == pygame.MOUSEMOTION:
                     # 获取鼠标位置
@@ -364,78 +364,77 @@ class entrance(object):
                     except:
                         continue
                 if event.type == pygame.MOUSEBUTTONUP:
-                    get = entrance.bind_switch(
+                    get = entrance.bind_switch(self,
                         event, pos=(400, 100), position=position)
-                    programme.player2_bullet += entrance.bind_addbox((40, 200))
-                    programme.player1_bullet += entrance.bind_addbox((40, 150))
-                    programme.movAmount += entrance.bind_addbox((40, 250))
+                    self.player2_bullet += entrance.bind_addbox(self,(40, 200))
+                    self.player1_bullet += entrance.bind_addbox(self,(40, 150))
+                    self.movAmount += entrance.bind_addbox(self,(40, 250))
                     if get != None:
-                        programme.god = get if programme.god != True else False
+                        self.god = get if self.god != True else False
                     if x > 365 and x <= 480 and y > 300+position and y <= 340+position:
-                        programme.planeColor_player = entrance.colorChooser(
-                            programme.screen)
+                        self.planeColor_player = entrance.colorChooser(self,
+                            self.screen)
                     if x > 365 and x <= 480 and y > 350+position and y+position <= 390:
-                        programme.wigColor_player = entrance.colorChooser(
-                            programme.screen)
+                        self.wigColor_player = entrance.colorChooser(self,
+                            self.screen)
                     if x > 10 and x < 50 and y+position > 10 and y+position < 40:
-                        tools.ui.switchAnimation()
+                        tools.ui.switchAnimation(self,)
                         running = False
 
             pygame.display.update()
 
-    def entrance():
-        def __init__(self):
-            pass
-        while programme.running:
+    def entrance(self,):
+        
+        while self.running:
             time.sleep(0.04)
-            pygame.draw.rect(programme.screen, [200, 0, 0], [00, 40, 500, 70])
-            programme.font = pygame.font.Font(
+            pygame.draw.rect(self.screen, [200, 0, 0], [00, 40, 500, 70])
+            self.font = pygame.font.Font(
                 "default.ttf", 40)
-            programme.screen.blit(programme.font.render(
+            self.screen.blit(self.font.render(
                 f"Plane War", True, 'WHITE'), (150, 50))
             # 重新设置字体
-            programme.font = pygame.font.Font(
+            self.font = pygame.font.Font(
                 "default.ttf", 20)
-            programme.screen.blit(programme.font.render(
-                f"{programme.version}", True, 'white'), (0, 470))
-            entrance.draw_button(pos=410, type='active')
-            entrance.print_screen("设置", (220, 420))
-            entrance.draw_button(type='inactive')
-            entrance.draw_button(pos=320, type='active')
-            entrance.print_screen("单人模式")
-            entrance.print_screen("双人模式", (210, 330))
-            pygame.draw.rect(programme.screen, [200, 0, 0], [00, 40, 500, 70])
-            programme.font = pygame.font.Font(
+            self.screen.blit(self.font.render(
+                f"{self.version}", True, 'white'), (0, 470))
+            entrance.draw_button(self,pos=410, type='active')
+            entrance.print_screen(self,"设置", (220, 420))
+            entrance.draw_button(self,type='inactive')
+            entrance.draw_button(self,pos=320, type='active')
+            entrance.print_screen(self,"单人模式")
+            entrance.print_screen(self,"双人模式", (210, 330))
+            pygame.draw.rect(self.screen, [200, 0, 0], [00, 40, 500, 70])
+            self.font = pygame.font.Font(
                 "default.ttf", 40)
-            programme.screen.blit(programme.font.render(
+            self.screen.blit(self.font.render(
                 f"Plane War", True, 'WHITE'), (150, 50))
             # 重新设置字体
-            programme.font = pygame.font.Font(
+            self.font = pygame.font.Font(
                 "default.ttf", 20)
-            programme.screen.blit(programme.font.render(
-                f"{programme.version}", True, 'white'), (0, 470))
-            entrance.draw_star()
-            # programme 函数主循环
+            self.screen.blit(self.font.render(
+                f"{self.version}", True, 'white'), (0, 470))
+            entrance.draw_star(self,)
+            # self 函数主循环
             # 获取事件
             for event in pygame.event.get():
                 # 退出检测
                 if event.type == pygame.QUIT:
-                    programme.running = False
+                    self.running = False
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if x >= 100 and x <= 400:
                         if y >= 240 and y <= 310:
-                            programme.screen.fill([100, 100, 100])
-                            programme.running = False
-                            programme.main(False)
+                            self.screen.fill([100, 100, 100])
+                            self.running = False
+                            self.main(False)
                         if y > 320 and y <= 390:
-                            programme.running = False
-                            programme.screen.fill([100, 100, 100])
-                            programme.player2 = True
-                            programme.main(True)
+                            self.running = False
+                            self.screen.fill([100, 100, 100])
+                            self.player2 = True
+                            self.main(True)
                         if y > 410 and y < 490:
-                            entrance.setting()
+                            entrance.setting(self,)
                 if event.type == pygame.MOUSEBUTTONUP and x >= 460 and y > 450 and x <= 490 and y <= 480:
-                    entrance.setting()
+                    entrance.setting(self,)
                 if event.type == pygame.MOUSEMOTION:
                     # 获取鼠标位置
                     try:
@@ -448,8 +447,8 @@ class entrance(object):
 
 if __name__ == '__main__':
     from init import init
-    print("hello")
-    init.__init__()
-    entrance.init_entrance()
-    entrance.entrance()
+    self = programme()
+    init.__init__(self)
+    entrance.init_entrance(self)
+    entrance.entrance(self)
     quit()
