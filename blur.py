@@ -1,19 +1,21 @@
 
+import pygame
+
 
 class blur(object):
     def __init__(self, blurList: list, width: int) -> None:
         self.blurList = blurList
         self.width = width
 
-    def blur(self) -> list:
+    def kernel(self, add=0) -> list:
         """
         @ self:Class blur
         """
         index = 4
         x = 0
         y = 0
-        length = len(self.blurList)-2
-        while index <= length:
+        self.length = len(self.blurList)-2
+        while index <= self.length:
             if x == self.width:
                 y += 1
                 x = 0
@@ -27,12 +29,12 @@ class blur(object):
             after_add = 0
             before = 1
             after = 0
-            if index + self.width < length:
-                    index_add = index + self.width
+            if index + self.width < self.length:
+                index_add = index + self.width
             else:
-                    index_add = index_min
+                index_add = index_min
             if y > 2:
-                
+
                 rAdd = self.blurList[after_min][0] + \
                     self.blurList[before_min][0] + self.blurList[index_min][0] + \
                     self.blurList[after_add][0] + \
@@ -45,42 +47,66 @@ class blur(object):
                     self.blurList[before_min][2] + self.blurList[index_min][2] + \
                     self.blurList[after_add][2] + \
                     self.blurList[before_add][2] + self.blurList[index_add][2]
-                r = (self.blurList[before][0] + self.blurList[after]
-                     [0] + self.blurList[index][0]+rAdd) // 9
-                g = (self.blurList[before][1] + self.blurList[after]
-                     [1] + self.blurList[index][1]+gAdd) // 9
-                b = (self.blurList[before][2] + self.blurList[after]
-                     [2] + self.blurList[index][2]+bAdd) // 9
-                self.blurList[before_add] = [r,g,b]
-                self.blurList[before_min] = [r,g,b]
-                self.blurList[after_min] = [r,g,b]
-                self.blurList[after_add] = [r,g,b,]
-                self.blurList[index_add] = [r,g,b]
-                self.blurList[index_min] = [r,g,b]
-                self.blurList[before] = [r,g,b]
-                self.blurList[after] = [r,g,b]
-                self.blurList[index] =[r,g,b]
+                r = int((self.blurList[before][0] + self.blurList[after]
+                         [0] + self.blurList[index][0]+rAdd) // 9)+add
+                g = int((self.blurList[before][1] + self.blurList[after]
+                         [1] + self.blurList[index][1]+gAdd)) // 9+add
+                b = int((self.blurList[before][2] + self.blurList[after]
+                         [2] + self.blurList[index][2]+bAdd) // 9) + add
+                if r > 255:
+                    r = 255
+                if g > 255:
+                    g = 255
+                if b > 255:
+                    b = 255
+
+                self.blurList[before_add] = [r, g, b]
+                self.blurList[before_min] = [r, g, b]
+                self.blurList[after_min] = [r, g, b]
+                self.blurList[after_add] = [r, g, b,]
+                self.blurList[index_add] = [r, g, b]
+                self.blurList[index_min] = [r, g, b]
+                self.blurList[before] = [r, g, b]
+                self.blurList[after] = [r, g, b]
+                self.blurList[index] = [r, g, b]
                 index += 1
                 x += 1
             else:
-                r = (self.blurList[index-2][0] + self.blurList[index-1]
-                     [0] + self.blurList[index][0]+rAdd) // 3
-                g = (self.blurList[index-2][1] + self.blurList[index-1]
-                     [1] + self.blurList[index][1]+gAdd) // 3
-                b = (self.blurList[index-2][2] + self.blurList[index-1]
-                     [2] + self.blurList[index][2]+bAdd) // 3
+                r = int((self.blurList[index-2][0] + self.blurList[index-1]
+                         [0] + self.blurList[index][0]+rAdd) // 3)+add
+                g = int((self.blurList[index-2][1] + self.blurList[index-1]
+                         [1] + self.blurList[index][1]+gAdd) // 3)+add
+                b = int((self.blurList[index-2][2] + self.blurList[index-1]
+                         [2] + self.blurList[index][2]+bAdd) // 3)+add
+
+                if r > 255:
+                    r = 255
+                if g > 255:
+                    g = 255
+                if b > 255:
+                    b = 255
                 index += 1
                 x += 1
-            if length >= self.width and length < length - self.width:
-                before_min += 1 
+            if self.length >= self.width and self.length < self.length - self.width:
+                before_min += 1
                 after_min += 1
                 before_add += 1
                 after_add += 1
                 before += 1
                 after += 1
-                index_add +=1
-                index_min +=1
+                index_add += 1
+                index_min += 1
         return self.blurList
+
+    def blender(self, surface, width=500, xstart=0, ystart=0):
+        x = xstart
+        y = ystart
+        for rgba in self.blurList:
+            if x == width:
+                y += 1
+                x = xstart
+            pygame.draw.rect(surface, rgba, [x, y, 1, 1])
+            x += 1
 
 
 if __name__ == '__main__':
@@ -105,9 +131,9 @@ if __name__ == '__main__':
             y += 1
             continue
         index += 1
-    l = blur.blur(self)
-    l = blur.blur(self)
-    index = 0
+    l = blur.kernel(self, add=10)
+    blur.blender(self, window, 500)
+    '''index = 0
     y = 0
     for list in l:
         pygame.draw.rect(window, list, [index, y, 1, 1])
@@ -115,7 +141,7 @@ if __name__ == '__main__':
             index = 0
             y += 1
             continue
-        index += 1
+        index += 1'''
     pygame.display.update()
     pygame.Surface.get_at(window, (10, 10))
     while True:
