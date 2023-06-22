@@ -2,6 +2,7 @@ import pygame
 import random
 from Append import Append
 from programme import programme
+from music import music
 '''
  * When I wrote this, only God and I understood what I was doing
  * Now, God only knows
@@ -15,8 +16,9 @@ from programme import programme
 
 class init(programme):
     def init(master):
-        
-
+        master.egg = False
+        musics = music("./audio.mp3")
+        musics.play()
         # 运行指示量
         master.blur = True
         master.running = True
@@ -47,6 +49,7 @@ class init(programme):
         pygame.key.set_repeat(3, 25)
 
     def init_modules(master,):
+        master.music = True
         master.player2 = False
         # init pygame
         pygame.init()
@@ -118,7 +121,7 @@ class init(programme):
         master.wigColor_player = [131, 206, 250]
         master.planeColor_enemy = [192, 192, 192]
         master.wigColor_enemy = [178, 34, 34]
-        master.planeAmount =  random.randint(10, 30)
+        master.planeAmount = random.randint(10, 30)
         master.speed = 0
 
     def init_screen(master,):
@@ -155,6 +158,6 @@ class init(programme):
         master.frame_player1 = 0
         master.frame_player2 = 0
 
-    def init_fps(master,fps=15):
-        master.version = "0.5.6"
+    def init_fps(master, fps=15):
+        master.version = "0.6.7"
         master.fps = fps

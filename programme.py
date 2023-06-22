@@ -4,7 +4,11 @@ from ui import ui
 from graphic import graphic_update
 import time
 from bind import bind
+from egg import egg
 import _thread
+import _thread
+
+
 class programme():
     def __init__(self):
         self.init = True
@@ -13,13 +17,13 @@ class programme():
         ui.switchAnimation(self,)
         index = 0
         while self.running:
+
             if not self.blur:
-                time.sleep(0.1)
+                time.sleep(0.05)
             self.player2 = player2
             for message in self.message:
-                if message == 'egg':
-                    while True:
-                        time.sleep(100)
+                if self.planeAmount == 0:
+                    egg.egg_graphic(self)
                 if message == 'switch':
                     ui.switchAnimation(self,)
                     del self.message[index]
@@ -45,12 +49,11 @@ class programme():
             ui.aircraft_1(self,)
             pygame.display.update()
 
-    def main(self,run, player2=False):
+    def main(self, run, player2=False):
         """
         plane War
         """
 
-        # 显示玩家血量
         times = 0
         self.running = run
         _thread.start_new_thread(
@@ -82,9 +85,16 @@ class programme():
                 if event.type == pygame.KEYDOWN:
                     bind.keyEvent(self, event)
             update.update(self)
+
+
 if __name__ == "__main__":
     from entrance import entrance
     from init import init
     self = init.init(programme())
     output = entrance.entrance(self)
-    programme.main(self,output[0],output[1])
+    try:
+        programme.main(self, output[0], output[1])
+    except SyntaxError:
+        print(SyntaxError)
+    else:
+        print("Game Finished")

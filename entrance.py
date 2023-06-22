@@ -2,6 +2,7 @@ import pygame
 import time
 import random
 from ui import ui
+from music import music
 from pygame import RESIZABLE
 
 '''
@@ -195,6 +196,7 @@ class entrance(object):
                     return True
             except:
                 return None
+        
             return False
 
     def colorChooser(self,screen):
@@ -325,6 +327,7 @@ class entrance(object):
             pygame.draw.rect(self.screen, self.wigColor_player, [
                              365, 350+position, 80, 40])
             entrance.switch(self,self.blur,(40,400),"模糊效果",position)
+            entrance.switch(self,self.music,(40,450),"音乐",position)
             for event in pygame.event.get():
                 # 退出检测
                 try:
@@ -345,13 +348,19 @@ class entrance(object):
                         event, pos=(400, 100), position=position)
                     getBlur = entrance.bind_switch(self,
                         event, pos=(400, 400), position=position)
+                    getMusic = entrance.bind_switch(self,
+                        event, pos=(400, 450), position=position)
                     self.player2_bullet += entrance.bind_addbox(self,(40, 200))
                     self.player1_bullet += entrance.bind_addbox(self,(40, 150))
                     self.movAmount += entrance.bind_addbox(self,(40, 250))
                     if get != None:
                         self.god = get if self.god != True else False
                     if getBlur != None:
-                        self.blur = getBlur if self.god != True else False
+                        self.blur = getBlur if self.blur != getBlur else self.blur
+                    if getMusic != None:
+                        self.music = getMusic if self.music != getMusic else self.music
+                        getMusic = None
+                        
                     if x > 365 and x <= 480 and y > 300+position and y <= 340+position:
                         self.planeColor_player = entrance.colorChooser(self,
                             self.screen)
