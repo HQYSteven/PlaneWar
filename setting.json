@@ -1,0 +1,89 @@
+{
+    "repeat": 25,
+    "pressTime": 3,
+    "medicineAmount": 20,
+    "stringMov": 5,
+    "missile": 50,
+    "xray": 40,
+    "artillery": 50,
+    "stone": 5,
+    "bullet": 10,
+    "attack": 20,
+    "hit": 5,
+    "crash": 15,
+    "min": 10,
+    "attackColor": [
+        0,
+        255,
+        255
+    ],
+    "cure": 50,
+    "defaultMode": "normal",
+    "color1": [
+        0,
+        255,
+        255
+    ],
+    "color2": [
+        30,
+        144,
+        255
+    ],
+    "color3": [
+        0,
+        0,
+        139
+    ],
+    "color4": [
+        255,
+        20,
+        147
+    ],
+    "planeColor_player": [
+        30,
+        144,
+        255
+    ],
+    "wigColor_player": [
+        131,
+        206,
+        250
+    ],
+    "planeColor_enemy": [
+        192,
+        192,
+        192
+    ],
+    "wigColor_enemy": [
+        178,
+        34,
+        34
+    ],
+    "fontPath": "./default.ttf",
+    "fontSize": 15,
+    "initColor": [
+        0,
+        0,
+        0
+    ],
+    "movAmount": 5,
+    "RESIZEABLE": 1,
+    "fire": [
+        255,
+        0,
+        0
+    ],
+    "player1_life": 0,
+    "player2_life": 100,
+    "score": 0,
+    "player1_x": 240,
+    "player1_y": 440,
+    "player2_x": 225,
+    "player2_y": 470,
+    "player1_fuel": 1,
+    "version": "0.7.0",
+    "screenHeight": 500,
+    "screenWidth": 500,
+    "audio": "./audio.mp3",
+    "fps": 30
+}

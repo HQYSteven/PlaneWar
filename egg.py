@@ -9,7 +9,6 @@ class egg(object):
         self.player1_y = 380-int(self.distance)
 
     def grvaity(self, color):
-        pygame.draw.rect(self.screen, [0, 0, 0], [0, 0, 100, 100])
         text = self.font.render(
             f"{round(self.gravity,2)}N/kg,{round(self.speed,2)}m/s", True, "white")
         self.screen.blit(text, (10, 10))
@@ -18,7 +17,6 @@ class egg(object):
         self.screen.blit(text, (10, 40))
 
     def fuel(self, color):
-        pygame.draw.rect(self.screen, [0, 0, 0], [270, 0, 100, 100])
         text = self.font.render(
             f"FUEL:{round(self.fuelAmount*100,2)}%", True, "white")
         self.screen.blit(text, (270, 10))
@@ -47,8 +45,7 @@ class egg(object):
         机身 30,144,255\n
         机翼 131,206,250
         '''
-        pygame.draw.rect(self.screen, [0, 0, self.color], [
-                         self.player1_x-50, self.player1_y, 100, 100])
+        
         pygame.draw.circle(self.screen, self.planeColor_player, [
             self.player1_x+20, self.player1_y], 10)
         pygame.draw.rect(self.screen, self.planeColor_player, [
@@ -81,8 +78,8 @@ class egg(object):
     def egg_graphic(self):
 
         while self.running:
-            self.initColor = [10, 10, self.color]
-
+            time.sleep(0.01)
+            self.screen.fill([0,0,self.color])
             egg.grvaity(self, self.color)
             egg.fuel(self, self.color)
             if self.distance <= 320:
@@ -101,19 +98,18 @@ class egg(object):
         loopTimes = 0
         while self.running:
             loopTimes += 1
-            time.sleep(0.05)
+            time.sleep(0.01)
             egg.bind(self)
             loopTimes = egg.watch_egg(self, loopTimes)
-            if self.player1_y <= 200:
-                self.player1_y = 0
+            if self.player1_y <= 250:
+                self.player1_y = 250
             if self.gravity <= 0:
                 self.gravity = 0
             if self.gravity >= 9.80:
                 self.gravity = 9.80
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    pygame.quit()
-                    quit()
+                    return 'quit'
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_UP and self.fuelAmount > 0:
                         self.lostFuel = True
@@ -128,11 +124,12 @@ class egg(object):
                         self.lostFuel = False
 
                 if (self.player1_y == 380 and self.speed <= 3):
-                    print("YOU WIN")
-                    pygame.quit()
-                    quit()
+                    self.running = False
+                    return self.score,'win'
                 elif (self.player1_y == 380 and self.speed > 3):
-                    print("YOU LOSE")
-                    pygame.quit()
-                    quit()
+                    self.running = False
+                    return self.score,'lose'
+                elif self.distance < 0:
+                    self.running = False
+                    return self.score,'lose'
             pygame.display.update()

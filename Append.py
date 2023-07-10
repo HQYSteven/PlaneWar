@@ -1,5 +1,3 @@
-import pygame
-import time
 import random
 '''
  * You may think you know what the following code does.
@@ -20,31 +18,24 @@ import random
 '''
 
 
-class tools(object):
-    class file(object):
-        def readFile(name: str, startRow: int = 0, endRow: int = 1) -> str:
-            result = ''
-
-            with open(name, mode='r') as file:
-                fileList = []
-                fileList = file.readlines()
-                if endRow > len(fileList):
-                    endRow = len(fileList)
-                for index in range(0, endRow):
-                    if index >= startRow:
-                        result += fileList[index]
-                        continue
-
-            return result
-
-    
 class Append(object):
-    def appendMedicine(self,):
+    '''
+    This class contains methods used to append\n
+    enemies,medicines,stones,strings.
+    '''
+
+    def appendMedicine(self,) -> None:
+        '''
+        This fuction appends medicines that can cure players
+        '''
         self.medicineX.append(random.randint(0, 480))
         self.medicineY.append(0)
         self.medicineAmount -= 1
 
-    def appendEnemy(self,):
+    def appendEnemy(self,) -> None:
+        '''
+        This fuction appends enemies
+        '''
         num = random.randint(0, self.screenWidth-30)
         self.enemy_x_list.append(num)
         self.enemy_y_list.append(0)
@@ -53,7 +44,10 @@ class Append(object):
         self.enemyLifeList.append(100)
         self.planeAmount -= 1
 
-    def appendAttack(self, player=1):
+    def appendAttack(self, player=1) -> None:
+        '''
+        This fuction appends strings that can hurt players
+        '''
         if player:
             self.attackStringX.append(self.player1_x+13)
             self.attackStringY.append(self.screenHeight - 100)
