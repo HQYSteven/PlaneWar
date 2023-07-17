@@ -1,4 +1,5 @@
 from Append import Append
+from blur import blur
 import random
 import pygame
 from egg import egg
@@ -77,13 +78,31 @@ class bind(object):
             if self.planeAmount:
                 self.runningP = False
                 return self.score,"lose"
-        if self.planeAmount == 0:
+        if self.planeAmount == 0 and self.enemy_x_list ==[]:
                 self.message.append("egg")
                 time.sleep(1)
                 return egg.mainProgramme(self),egg
         if self.player2_life < 0:
             self.runningP = False
             return self.score,'lose'
+    def shortcut(self,event)->None:
+        '''
+        @ event:The event you got
+        This fuction is used to detect the shortcut option
+        '''
+        if event.key == pygame.K_F12:
+            self.message.append("shortcut")
+            run = True
+            while run:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        quit()
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_ESCAPE:
+                            print("Esc")
+                            run = False
+                            self.message.append("esc")
+            return None
     def watch(self, times) -> int:
         '''
         @ times: The loop times\n
@@ -95,6 +114,7 @@ class bind(object):
         bind.sendStones(self,times)
         r = bind.detectQuit(self)
         bind.sendMedicines(self,times)
+        
         if r != None:
             return r
         # make score over zero
@@ -114,6 +134,7 @@ class bind(object):
         '''
         # 左键处理
         # switch the arm mode
+        
         if event.key == pygame.K_F1:
             self.attack = self.bullet
             self.mode = 'normal'
@@ -156,3 +177,6 @@ class bind(object):
                     if self.player2_x != self.player1_x:
                         Append.appendAttack(self, 0)
                         self.player2_bullet -= 1
+        
+        bind.shortcut(self,event)
+        

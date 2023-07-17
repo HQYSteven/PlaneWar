@@ -46,16 +46,15 @@ class egg(object):
         机翼 131,206,250
         '''
         
-        pygame.draw.circle(self.screen, self.planeColor_player, [
-            self.player1_x+20, self.player1_y], 10)
         pygame.draw.rect(self.screen, self.planeColor_player, [
-            self.player1_x+10, self.player1_y, 20, 80])
+            self.player1_x+10, self.player1_y, 20, 80]
+            ,border_radius=10)
         pygame.draw.rect(self.screen, self.wigColor_player, [
-            self.player1_x-32, self.player1_y+25, 42, 25])
+            self.player1_x-32, self.player1_y+25, 42, 25],border_radius=10)
         pygame.draw.rect(self.screen, self.wigColor_player, [
-            self.player1_x+30, self.player1_y+25, 42, 25])
+            self.player1_x+30, self.player1_y+25, 42, 25],border_right_radius=10)
         pygame.draw.rect(self.screen, self.wigColor_player, [
-            self.player1_x+2, self.player1_y+80, 35, 5])
+            self.player1_x+2, self.player1_y+80, 35, 5],border_left_radius=10)
         pygame.draw.polygon(self.screen, self.planeColor_player, [(
             self.player1_x-10, self.player1_y+25), (self.player1_x-23, self.player1_y+25),
             (self.player1_x-17, self.player1_y+15)])

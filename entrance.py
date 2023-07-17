@@ -50,22 +50,24 @@ class start(object):
         @ string: the text you want to print at the topbar.\n
         A fuc used to draw the toopbar
         '''
-    def topbar(self, string: str = ""):
-        pygame.draw.rect(self.screen, [255, 0, 0], [0, 0, 500, 50])
-        start.print_screen(
-            self, string, pos=(230, 10), color='white')
-        start.print_screen(self, "<", pos=(10, 10), color='white')
 
-    def bind_topbar(x,y,event):
+    def topbar(self, string: str = ""):
+        pygame.draw.rect(self.screen, [25, 25, 25], [0, 0, 500, 50],border_radius=10)
+        start.print_screen(
+            self, string, pos=(230, 10), color='#FDFDFD')
+        self.screen.blit(self.backIconPath, (10, 10))
+
+    def bind_topbar(x, y, event):
         '''
         detect if the button has benn pressed
         '''
         if x > 10 and x < 50 and y > 10 and y < 40 and event.type == pygame.MOUSEBUTTONUP:
             return True
         return False
-        
+
     def startPage(self):
         self.screen.fill([0, 0, 0])
+        pygame.draw.rect(self.screen,[200,0,0],[140,40,215,165],border_radius=10)
         self.font = pygame.font.Font(
             "default.ttf", 70)
         self.screen.blit(self.font.render(
@@ -77,9 +79,35 @@ class start(object):
             "default.ttf", 20)
         self.screen.blit(self.font.render(
             f"{self.version}", True, 'white'), (0, 470))
+        self.screen.blit(pygame.image.load("./startPhoto.png"),(120,220))
         pygame.display.update()
-        time.sleep(1)
-        self.screen.fill([0,0,0])
+        x = 140
+        y = 45
+        width = 215
+        height = 165
+        value = 200
+        while x >0 and y >0:
+            x -=4
+            y -=1
+            value -=4
+            width +=8
+            height +=10
+            self.screen.fill([0, 0, 0])
+            pygame.draw.rect(self.screen,[value,0,0],[x,y,width,height],border_radius=10)
+            self.font = pygame.font.Font(
+                "default.ttf", 70)
+            self.screen.blit(self.font.render(
+                f"Plane", True, 'WHITE'), (150, 50))
+            self.screen.blit(self.font.render(
+                f"War", True, 'WHITE'), (180, 130))
+            # 重新设置字体
+            self.font = pygame.font.Font(
+                "default.ttf", 20)
+            self.screen.blit(self.font.render(
+                f"{self.version}", True, 'white'), (0, 470))
+            self.screen.blit(pygame.image.load("./startPhoto.png"),(120,220))
+            pygame.display.update()
+        self.screen.fill([0, 0, 0])
 
     def init_start(self):
         pygame.display.set_caption(f"Plane War{self.version}")
@@ -96,42 +124,18 @@ class start(object):
         '''
         # draw when active
         if type == 'active':
-            pygame.draw.rect(self.screen, [135, 206, 250], [
-                100, pos, 300, 50])
-            pygame.draw.circle(
-                self.screen, [135, 206, 250], [100, pos+20], 20)
-            pygame.draw.circle(
-                self.screen, [135, 206, 250], [400, pos+30], 20)
-            pygame.draw.circle(
-                self.screen, [135, 206, 250], [100, pos+30], 20)
-            pygame.draw.circle(
-                self.screen, [135, 206, 250], [400, pos+20], 20)
+            pygame.draw.rect(self.screen, self.buttonColor, [
+                100, pos, 300, 50],border_radius=8)
         # draw the inactive button
         if type == 'inactive':
-            pygame.draw.rect(self.screen, [135, 206, 235], [
-                100, 250, 300, 50])
-            pygame.draw.circle(
-                self.screen, [135, 206, 235], [100, 270], 20)
-            pygame.draw.circle(
-                self.screen, [135, 206, 235], [400, 280], 20)
-            pygame.draw.circle(
-                self.screen, [135, 206, 235], [100, 280], 20)
-            pygame.draw.circle(
-                self.screen, [135, 206, 235], [400, 270], 20)
+            pygame.draw.rect(self.screen, self.buttonColor, [
+                100, 250, 300, 50],border_radius=8)
 
     def cover_button(self, pos: int = 250):
         pygame.draw.rect(self.screen, [0, 0, 0], [
             100, pos, 300, 50])
-        pygame.draw.circle(
-            self.screen, [0, 0, 0], [100, pos+20], 20)
-        pygame.draw.circle(
-            self.screen, [0, 0, 0], [400, pos+30], 20)
-        pygame.draw.circle(
-            self.screen, [0, 0, 0], [100, pos+30], 20)
-        pygame.draw.circle(
-            self.screen, [0, 0, 0], [400, pos+20], 20)
-
-    def print_screen(self, string: str = "", pos: list = (210, 260), color: str = 'black'):
+        
+    def print_screen(self, string: str = "", pos: list = (210, 260), color: str = '#CCCCCC'):
         '''
         @ string: The str you want to print.\n
         @ pos: The pos you want to print at.\n
@@ -189,82 +193,89 @@ class start(object):
         a fuction used to draw setting button\n
         '''
         # draw the button when inactive
-        if type == "inactive":
-            pygame.draw.rect(self.screen, [135, 206, 235], [
-                460, 450, 30, 30])
-            pygame.draw.circle(
-                self.screen, [135, 206, 235], [490, 453], 3)
-            pygame.draw.circle(
-                self.screen, [135, 206, 235], [460, 453], 3)
-            pygame.draw.circle(
-                self.screen, [135, 206, 235], [490, 477], 3)
-            pygame.draw.circle(
-                self.screen, [135, 206, 235], [460, 477], 3)
-            pygame.draw.rect(self.screen, [135, 206, 235], [
-                457, 453, 3, 24])
-            pygame.draw.rect(self.screen, [135, 206, 235], [
-                490, 453, 3, 24])
+        pygame.draw.rect(self.screen, self.buttonColor, [
+            460, 450, 30, 30],border_radius=3)
+        pygame.draw.rect(self.screen, self.buttonColor, [
+            457, 453, 3, 24],border_radius=3)
+        pygame.draw.rect(self.screen, self.buttonColor, [
+            490, 453, 3, 24],border_radius=3)
         # draw the button when active
-        if type == "active":
-            pygame.draw.rect(self.screen, [135, 206, 250], [
-                460, 450, 30, 30])
-            pygame.draw.circle(
-                self.screen, [135, 206, 250], [490, 453], 3)
-            pygame.draw.circle(
-                self.screen, [135, 206, 250], [460, 453], 3)
-            pygame.draw.circle(
-                self.screen, [135, 206, 250], [490, 477], 3)
-            pygame.draw.circle(
-                self.screen, [135, 206, 250], [460, 477], 3)
-            pygame.draw.rect(self.screen, [135, 206, 250], [
-                457, 453, 3, 24])
-            pygame.draw.rect(self.screen, [135, 206, 250], [
-                490, 453, 3, 24])
+        
 
-    def draw_switch(self, situation: str, pos: list, position: int):
+    def draw_switch(self, situation: str, pos: list,):
         '''
         @ situation: The situation the button is.["active","inactive"]\n
         @ pos: The pos the button is.\n
-        @ position: Scrolledbar will use it.\n
+        @ : Scrolledbar will use it.\n
         a fuction used to draw switch.
         '''
         # judge if the space is enough for the elements to draw
-        if position + pos[1] >= 50:
+        if + pos[1] >= 50:
             if situation == True:
                 pygame.draw.circle(self.screen, [200, 100, 100], [
-                                   pos[0], pos[1]+5+position], 12)
+                                   pos[0], pos[1]+5], 12)
                 pygame.draw.circle(self.screen, [200, 100, 100], [
-                                   pos[0]+20, pos[1]+5+position], 12)
+                                   pos[0]+20, pos[1]+5], 12)
                 pygame.draw.rect(self.screen, [200, 100, 100], [
-                                 pos[0], pos[1]-7+position, 20, 24])
+                                 pos[0], pos[1]-7, 20, 24])
                 pygame.draw.circle(self.screen, [255, 255, 255], [
-                                   pos[0]+20, pos[1]+5+position], 8)
+                                   pos[0]+20, pos[1]+5], 8)
             if situation == False:
                 pygame.draw.circle(self.screen, [100, 100, 100], [
-                                   pos[0], pos[1]+5+position], 12)
+                                   pos[0], pos[1]+5], 12)
                 pygame.draw.circle(self.screen, [100, 100, 100], [
-                                   pos[0]+20, pos[1]+5+position], 12)
+                                   pos[0]+20, pos[1]+5], 12)
                 pygame.draw.rect(self.screen, [100, 100, 100], [
-                                 pos[0], pos[1]-7+position, 20, 24])
+                                 pos[0], pos[1]-7, 20, 24])
                 pygame.draw.circle(self.screen, [255, 255, 255], [
-                                   pos[0], pos[1]+position+5], 8)
+                                   pos[0], pos[1]+5], 8)
 
-    def bind_switch(self, event: str, pos: list, position: int) -> bool:
+    def bind_switch(self, event: str, pos: list, ) -> bool:
         '''
         @ event: The event you get
         @ pos: The pos the switch at.
-        @ position: Scrolledbar will use it.\n
+        @ : Scrolledbar will use it.\n
         A fuction used to draw switch.
         '''
         # bind the switch
-        if event.type == pygame.MOUSEBUTTONUP and position + pos[1] >= 30:
+        if event.type == pygame.MOUSEBUTTONUP and + pos[1] >= 30:
             try:
-                if pygame.mouse.get_pos()[0] >= pos[0]-5 and pygame.mouse.get_pos()[0] <= pos[0]+30 and pygame.mouse.get_pos()[1] >= pos[1]-5+position and pygame.mouse.get_pos()[1] <= pos[1]+24+position:
+                if pygame.mouse.get_pos()[0] >= pos[0]-5 and pygame.mouse.get_pos()[0] <= pos[0]+30 and pygame.mouse.get_pos()[1] >= pos[1]-5 and pygame.mouse.get_pos()[1] <= pos[1]+24:
                     return True
             except:
                 return None
 
             return False
+
+    def chooser_graghic(self, screen):
+        x = 0
+        y = 0
+        # init the colors
+        down = False
+        for event in pygame.event.get():
+            # bind the events
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.MOUSEMOTION:
+                x, y = pygame.mouse.get_pos()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                down = True
+            if event.type == pygame.MOUSEBUTTONUP:
+                down = False
+                if x > 10 and x < 490 and y > 410 and y < 490:
+                    return [r, g, b]
+            if down:
+                x, y = pygame.mouse.get_pos()
+                if x >= 20 and x <= 220:
+                    print("True")
+                    if y >= 25 and y <= 55:
+                        r = x-20
+                    if y >= 55 and y <= 65:
+                        g = x-20
+                    if y >= 85 and y <= 95:
+                        print(y)
+                        b = x-20
 
     def colorChooser(self, screen):
         '''
@@ -275,48 +286,14 @@ class start(object):
         b = 0
         g = 0
         running = True
-        x = 0
-        y = 0
-        # init the colors
-        down = False
+
         while running:
-            for event in pygame.event.get():
-                # bind the events
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    quit()
-                if event.type == pygame.MOUSEMOTION:
-                    x, y = pygame.mouse.get_pos()
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    down = True
-                if event.type == pygame.MOUSEBUTTONUP:
-                    down = False
-                    if x > 10 and x < 490 and y > 410 and y < 490:
-                        return [r, g, b]
-                if down:
-                    x, y = pygame.mouse.get_pos()
-                    if x >= 20 and x <= 220:
-                        print("True")
-                        if y >= 25 and y <= 55:
-                            r = x-20
-                        if y >= 55 and y <= 65:
-                            g = x-20
-                        if y >= 85 and y <= 95:
-                            print(y)
-                            b = x-20
+
             screen.fill([r, g, b])
             # draw the chooser frame
-            pygame.draw.rect(screen, [155, 155, 155], [20, 8, 200, 104])
-            # draw the buttons
-            pygame.draw.circle(screen, [155, 155, 155], [20, 20], 12)
-            pygame.draw.circle(screen, [155, 155, 155], [220, 20], 12)
-            pygame.draw.circle(screen, [155, 155, 155], [220, 100], 12)
-            pygame.draw.circle(screen, [155, 155, 155], [20, 100], 12)
-            pygame.draw.rect(screen, [155, 155, 155], [8, 20, 12, 80])
-            pygame.draw.rect(screen, [155, 155, 155], [220, 20, 12, 80])
-            pygame.draw.rect(screen, [255, 235, 235], [20, 25, 200, 16])
-            pygame.draw.rect(screen, [235, 255, 235], [20, 55, 200, 16])
-            pygame.draw.rect(screen, [235, 235, 255], [20, 85, 200, 16])
+            pygame.draw.rect(screen, [255, 235, 235], [20, 25, 200, 16],border_radius=3)
+            pygame.draw.rect(screen, [235, 255, 235], [20, 55, 200, 16],border_radius=3)
+            pygame.draw.rect(screen, [235, 235, 255], [20, 85, 200, 16],border_radius=3)
             # draw the circle border
             pygame.draw.circle(screen, [255, 235, 235], [20, 33], 8)
             pygame.draw.circle(screen, [235, 255, 235], [20, 63], 8)
@@ -327,47 +304,44 @@ class start(object):
             pygame.draw.circle(screen, [r, g, b], [20+r, 33], 8)
             pygame.draw.circle(screen, [r, g, b], [20+g, 63], 8)
             pygame.draw.circle(screen, [r, g, b], [20+b, 93], 8)
-            pygame.draw.rect(screen, [155, 155, 155], [10, 420, 480, 70])
-            # update the screen
-            pygame.display.update()
-
-    def switch(self, situation: str, pos: list, text: str, position: int):
+            pygame.draw.rect(screen, [155, 155, 155], [10, 420, 480, 70],border_radius=3)
+    def switch(self, situation: str, pos: list, text: str, ):
         """
         @ situation: The status the switch is.
         @ pos: The pos the switch is at.
         @ text: The text you want to show next to the switch
-        @ position: The scrolledbar will soon use it.\n
+        @ : The scrolledbar will soon use it.\n
         A fuction used to draw a switch
         """
         start.draw_switch(self,
-                             situation, [pos[0]+360, pos[1]+10], position=position)
+                          situation, [pos[0]+360, pos[1]+10], )
         start.print_screen(self, text, pos, color='white')
 
-    def draw_addbox(self, value, pos, text, position):
+    def draw_addbox(self, value, pos, text, ):
         """
         @ value: The number you want to show in the addbox.
         @ pos: The pos the addbox is at.
         @ text: The text you want to show at the pos the addbox at
-        @ position: Scrolledbar will soon use it.\n
+        @ : Scrolledbar will soon use it.\n
         A fuction used to draw addbox.
         """
         start.print_screen(self, text, pos, color='white')
         if value <= 0:
             pygame.draw.rect(self.screen, [150, 100, 100], [
-                             pos[0]+330, pos[1]+position, 20, 20])
+                             pos[0]+330, pos[1], 20, 20],border_radius=3)
         else:
             pygame.draw.rect(self.screen, [200, 100, 100], [
-                             pos[0]+330, pos[1]+position, 20, 20])
+                             pos[0]+330, pos[1], 20, 20],border_radius=3)
         pygame.draw.rect(self.screen, [200, 100, 100], [
-                         pos[0]+352, pos[1]+position, 40, 20])
+                         pos[0]+352, pos[1], 40, 20],border_radius=3)
         pygame.draw.rect(self.screen, [200, 100, 100], [
-                         pos[0]+394, pos[1]+position, 20, 20])
+                         pos[0]+394, pos[1], 20, 20],border_radius=3)
         start.print_screen(self,
-                              "-", [pos[0]+335, pos[1]-5+position], color='white')
+                           "-", [pos[0]+335, pos[1]-5], color='white')
         start.print_screen(self,
-                              "+", [pos[0]+398, pos[1]-6+position], color='white')
+                           "+", [pos[0]+398, pos[1]-6], color='white')
         start.print_screen(self,
-                              str(value), [pos[0]+356, pos[1]-4+position], color='white')
+                           str(value), [pos[0]+356, pos[1]-4], color='white')
 
     def bind_addbox(self, pos: list) -> int:
         """
@@ -389,40 +363,102 @@ class start(object):
         """
         The setting userface
         """
-        position = 0
         running = True
-        start.topbar(self, "Setting")
-        start.switch(self, self.god, pos=(40, 100),
-                        text="作弊模式", position=position)
-        start.draw_addbox(self, self.player1_bullet,
-                                (40, 150+position), "玩家一子弹数量", position)
-        start.draw_addbox(self, self.player2_bullet,
-                                (40, 200+position), "玩家二子弹数量", position)
-        start.draw_addbox(self, self.movAmount,
-                                (40, 250,), "敌人移动速度", position=position)
-        start.print_screen(
-            self, "玩家机身颜色", (40, 300+position), color='white')
-        start.print_screen(
-            self, "玩家机翼颜色", (40, 350+position), color='white')
-        pygame.draw.rect(self.screen, self.planeColor_player, [
-                            365, 300+position, 80, 40])
-        pygame.draw.rect(self.screen, self.wigColor_player, [
-                            365, 350+position, 80, 40])
+
         while running:
-            start.switch(self, self.blur, (40, 400), "模糊效果", position)
-            start.switch(self, self.music, (40, 450), "音乐", position)
-            pygame.draw.rect(self.screen, self.planeColor_player, [
-                            365, 300+position, 80, 40])
-            pygame.draw.rect(self.screen, self.wigColor_player, [
-                            365, 350+position, 80, 40])
-            start.switch(self, self.god, pos=(40, 100),
-                        text="作弊模式", position=position)
+            self.screen.fill([0, 0, 0])
+            pygame.draw.rect(self.screen,[70,70,70],[30,80,440,50],border_radius=5)
+            pygame.draw.rect(self.screen,[70,70,70],[30,135,440,50],border_radius=5)
+            pygame.draw.rect(self.screen,[70,70,70],[30,190,440,50],border_radius=5)
+            pygame.draw.rect(self.screen,[70,70,70],[30,245,440,50],border_radius=5)
+            start.topbar(self, "Setting")
+            start.switch(self, self.god, pos=(38, 100),
+                         text="作弊模式", )
             start.draw_addbox(self, self.player1_bullet,
-                                    (40, 150+position), "玩家一子弹数量", position)
+                              (40, 153), "玩家一子弹数量", )
             start.draw_addbox(self, self.player2_bullet,
-                                    (40, 200+position), "玩家二子弹数量", position)
+                              (40, 203), "玩家二子弹数量", )
             start.draw_addbox(self, self.movAmount,
-                                    (40, 250,), "敌人移动速度", position=position)
+                              (40, 253,), "敌人移动速度", )
+            start.print_screen(
+                self, "玩家机身颜色", (40, 300), color='white')
+            start.print_screen(
+                self, "玩家机翼颜色", (40, 350), color='white')
+            pygame.draw.rect(self.screen, self.planeColor_player, [
+                365, 300, 80, 40],border_radius=3)
+            pygame.draw.rect(self.screen, self.wigColor_player, [
+                365, 350, 80, 40],border_radius=3)
+            start.switch(self, self.blur, (40, 400), "模糊效果", )
+            start.switch(self, self.music, (40, 450), "音乐", )
+            pygame.draw.rect(self.screen, self.planeColor_player, [
+                365, 300, 80, 40],border_radius=3)
+            pygame.draw.rect(self.screen, self.wigColor_player, [
+                365, 350, 80, 40],border_radius=3)
+            for m in self.graghicCommand:
+                if m == "colorchose_planeColor":
+                    self.planeColor_player = start.colorChooser(self,
+                                                                self.screen)
+                    start.chooser_graghic(self, self.screen)
+                if m == "colorchose_wigColor":
+                    self.wigColor_player = start.colorChooser(self,
+                                                              self.screen)
+                    start.chooser_graghic(self, self.screen)
+
+            pygame.display.update()
+
+    def about(self) -> None:
+        '''
+        It shows the about page
+        '''
+        self.screen.fill([0, 0, 0])
+        pygame.draw.rect(self.screen, [232, 64, 38], [0, 90, 500, 90])
+        start.topbar(self, "About")
+        self.font = pygame.font.Font("./default.ttf", 60)
+        start.print_screen(self, "Plane War", (100, 100), 'white')
+        self.font = pygame.font.Font("./default.ttf", 15)
+        paragraghLists = tools.file.readFile("about.txt", 0, 9)
+        pygame.draw.rect(self.screen,[45,45,45],[50,190,400,280],border_radius=10)
+        plist = []
+        m = ''
+        for moderate in paragraghLists:
+            if moderate == '\n':
+                plist.append(m)
+                m = ''
+                continue
+            m += moderate
+        plist.append(m)
+        coordinate = 200
+        for m in plist:
+            start.print_screen(self, m, (60, coordinate), '#F1F3F5')
+            coordinate += 20
+        pygame.display.update()
+
+        while True:
+            for e in pygame.event.get():
+                try:
+                    x, y = pygame.mouse.get_pos()
+                except:
+                    pass
+                if x > 10 and x < 50 and y > 10 and y < 40 and e.type == pygame.MOUSEBUTTONUP:
+                    return 0
+                if e.type == pygame.QUIT:
+                    quit()
+
+    def kernel(self,) -> bool:
+        '''
+        The start of this game\n
+        Size:500x500\n
+        Module: random,pygame,time.\n
+        created in 2022 in Shangrao
+        '''
+        self.message = []
+        self.message.append("start")
+        startPage = True
+        _thread.start_new_thread(start.start_graghic.kernel, (self, ""))
+        while self.running:
+            # self 函数主循环
+            # 获取事件
+
             for event in pygame.event.get():
                 # 退出检测
                 try:
@@ -431,159 +467,124 @@ class start(object):
                     continue
                 if event.type == pygame.QUIT:
                     self.running = False
-                    running = False
-                    quit()
-                if event.type == pygame.MOUSEMOTION:
-                    # 获取鼠标位置
-                    try:
-                        x, y = pygame.mouse.get_pos()
-                    except:
-                        continue
-                if event.type == pygame.MOUSEBUTTONUP:
-                    get = start.bind_switch(self,
-                                               event, pos=(400, 100), position=position)
-                    getBlur = start.bind_switch(self,
-                                                   event, pos=(400, 400), position=position)
-                    getMusic = start.bind_switch(self,
-                                                    event, pos=(400, 450), position=position)
-                    self.player2_bullet += start.bind_addbox(
-                        self, (40, 200))
-                    self.player1_bullet += start.bind_addbox(
-                        self, (40, 150))
-                    self.movAmount += start.bind_addbox(self, (40, 250))
-                    if get != None:
-                        self.god = get if self.god != True else False
-                    if getBlur != None:
-                        self.blur = getBlur if self.blur != getBlur else self.blur
-                    if getMusic != None:
-                        self.music = getMusic if self.music != getMusic else self.music
-                        if not self.music:
-                            music.pause()
-                        else:
-                            try:
-                                music.play()
-                            finally:
-                                pass
-                        getMusic = None
-
-                    if x > 365 and x <= 480 and y > 300+position and y <= 340+position:
-                        self.planeColor_player = start.colorChooser(self,
-                                                                       self.screen)
-                    if x > 365 and x <= 480 and y > 350+position and y+position <= 390:
-                        self.wigColor_player = start.colorChooser(self,
-                                                                     self.screen)
-                    if x > 10 and x < 50 and y > 10 and y < 40:
-                        return 0
-            pygame.display.update()
-    def about(self)->None:
-        '''
-        It shows the about page
-        '''
-        self.screen.fill([0,0,0])
-        start.topbar(self,"About")
-        self.font = pygame.font.Font("./default.ttf",60)
-        start.print_screen(self,"Plane War",(100,100),'red')
-        self.font = pygame.font.Font("./default.ttf",15)
-        paragraghLists = tools.file.readFile("about.txt",0,9)
-        plist = []
-        m = ''
-        for moderate in paragraghLists:
-            if moderate == '\n':
-                plist.append(m)
-                m = ''
-                continue
-            m+=moderate
-        plist.append(m)
-        coordinate = 200
-        for m in plist:
-            start.print_screen(self,m,(60,coordinate),'white')
-            coordinate +=20
-        pygame.display.update()
-
-        while True:
-            for e in pygame.event.get():
-                try:
-                    x,y = pygame.mouse.get_pos()
-                except:
-                    pass
-                if x > 10 and x < 50 and y > 10 and y < 40 and e.type == pygame.MOUSEBUTTONUP:
-                    return 0
-                if e.type == pygame.QUIT:
-                    quit()
-
-            
-    def kernel(self,) -> bool:
-        '''
-        The start of this game\n
-        Size:500x500\n
-        Module: random,pygame,time.\n
-        created in 2022 in Shangrao
-        '''
-        self.message= []
-        self.message.append("start")
-        startPage = True
-        _thread.start_new_thread(start.start_graghic.kernel,(self,""))
-        while self.running:
-            # self 函数主循环
-            # 获取事件
-            
-            for event in pygame.event.get():
-                # 退出检测
-                try:
-                        x, y = pygame.mouse.get_pos()
-                except:
-                        continue
-                if event.type == pygame.QUIT:
-                    self.running = False
                     quit()
                 if event.type == pygame.MOUSEBUTTONUP:
                     if x >= 100 and x <= 400 and startPage:
                         if y >= 220 and y <= 280:
                             startPage = False
                             self.message.append("single")
-                            self.runningP =True
-                            r=programme.main(self,True,False)
-                            start.start_graghic.finishPage(self,r[0],True if r[1] == 'win' else False)
+                            self.runningP = True
+                            r = programme.main(self, True, False)
+                            try:
+                                start.start_graghic.finishPage(
+                                    self, r[0], True if r[1] == 'win' else False)
+                            except:
+                                pass
                             time.sleep(1)
+                            startPage = True
                         if y > 290 and y <= 350:
                             startPage = False
                             self.player2 = True
                             self.message.append("double")
-                            self.runningP =True
-                            r =programme.main(self,True,True)
+                            self.runningP = True
+                            r = programme.main(self, True, True)
                             time.sleep(1)
+                            startPage = True
                         if y > 360 and y < 420:
                             startPage = False
                             self.message.append("setting")
+                            running = True
+                            q = False
+                            while running:
+                                for event in pygame.event.get():
+                                    # 退出检测
+                                    try:
+                                        x, y = pygame.mouse.get_pos()
+                                    except:
+                                        continue
+                                    if event.type == pygame.QUIT:
+                                        self.running = False
+                                        quit()
+                                    if event.type == pygame.MOUSEMOTION:
+                                        # 获取鼠标位置
+                                        try:
+                                            x, y = pygame.mouse.get_pos()
+                                        except:
+                                            continue
+                                    if event.type == pygame.MOUSEBUTTONUP:
+                                        get = start.bind_switch(self,
+                                                                event, pos=(400, 100), )
+                                        getBlur = start.bind_switch(self,
+                                                                    event, pos=(400, 400), )
+                                        getMusic = start.bind_switch(self,
+                                                                     event, pos=(400, 450), )
+                                        self.player2_bullet += start.bind_addbox(
+                                            self, (40, 200))
+                                        self.player1_bullet += start.bind_addbox(
+                                            self, (40, 150))
+                                        self.movAmount += start.bind_addbox(
+                                            self, (40, 250))
+                                        if get != None:
+                                            self.god = get if self.god != True else False
+                                        if getBlur != None:
+                                            self.blur = getBlur if self.blur != getBlur else self.blur
+                                        if getMusic != None:
+                                            self.music = getMusic if self.music != getMusic else self.music
+                                            if not self.music:
+                                                music.pause()
+                                            else:
+                                                try:
+                                                    music.play()
+                                                finally:
+                                                    pass
+                                            getMusic = None
+                                        if x > 10 and x < 50 and y > 10 and y < 40:
+                                            q = True
+                                            break
+
+                                        if x > 365 and x <= 480 and y > 300 and y <= 340:
+                                            self.graghicCommand.append(
+                                                "colorchose_planeColor")
+
+                                        if x > 365 and x <= 480 and y > 350 and y <= 390:
+                                            self.graghicCommand.append(
+                                                "colorchose_wigColor")
+                                if q:
+                                    startPage = True
+                                    break
+                            startPage = True
+
                         if y > 420 and y < 460:
                             startPage = False
                             self.message.append("about")
-                if x > 10 and x < 50 and y > 10 and y < 40 and event.type == pygame.MOUSEBUTTONUP:
+                if x > 10 and x < 50 and y > 10 and y < 40 and event.type == pygame.MOUSEBUTTONDOWN:
                     startPage = True
                     self.runningP = False
-                
-                
+
     class start_graghic():
         '''
         This class is used to store the graghic parts of the start.
         '''
-        def finishPage(self,score,win):
+
+        def finishPage(self, score, win):
             '''
             This is the finish page of the game
             '''
-            
-            blurList = blur.get(self.screen,10,490,10,490)
-            s = blur(blurList,480)
-            blur.kernel(s,0)
-            blur.blender(s,self.screen,480,0,10)
-            start.print_screen(self,f"Score:{score}",(20,20),color='white')
+
+            blurList = blur.get(self.screen, 10, 490, 10, 490)
+            s = blur(blurList, 480)
+            blur.kernel(s, 0)
+            blur.blender(s, self.screen, 480, 0, 10)
+            start.print_screen(self, f"Score:{score}", (20, 20), color='white')
             victory = "win"if win == True else "lose"
-            start.print_screen(self,f"you {victory}",(20,50),color='white')
+            start.print_screen(self, f"you {victory}", (20, 50), color='white')
             pygame.display.update()
             time.sleep(1)
-        def kernel(self,a:str):
+
+        def kernel(self, a: str):
             '''
             The main programme of this class
+            The graghic programme if the start page.
             '''
             start.startPage(self)
             startPage = True
@@ -610,25 +611,26 @@ class start(object):
                     if m == 'single':
                         del self.message[self.message.index(m)]
                         ui.switchAnimation(self)
-                        programme.graphics(self,True,False)
+                        programme.graphics(self, True, False)
                         ui.switchAnimation(self)
                     if m == 'double':
                         del self.message[self.message.index(m)]
                         ui.switchAnimation(self)
-                        programme.graphics(self,True,True)
+                        programme.graphics(self, True, True)
                         ui.switchAnimation(self)
                     if m == 'switch':
                         del self.message[self.message.index(m)]
                         ui.switchAnimation(self)
                         startPage = True
                         setting = False
-                        aboutPage= False
+                        aboutPage = False
                 start.draw_star(self,)
                 if startPage:
                     aboutPage = False
                     setting = False
                     time.sleep(0.01)
-                    pygame.draw.rect(self.screen, [200, 0, 0], [00, 40, 500, 70])
+                    pygame.draw.rect(self.screen, [232, 64, 38], [
+                                     00, 40, 500, 70])
                     self.font = pygame.font.Font(
                         "./default.ttf", 40)
                     self.screen.blit(self.font.render(
@@ -638,15 +640,20 @@ class start(object):
                         "./default.ttf", 20)
                     self.screen.blit(self.font.render(
                         f"{self.version}", True, 'white'), (0, 470))
-                    start.draw_button(self,pos=220, type='active')
+                    start.draw_button(self, pos=220, type='active')
                     start.draw_button(self, pos=290, type='active')
                     start.draw_button(self, pos=360, type='active')
                     start.draw_button(self, pos=420, type='active')
+                    self.screen.blit(self.settingIconPath, (103, 363))
+                    self.screen.blit(self.singleIconPath, (105, 215))
+                    self.screen.blit(self.doubleIconPath, (105, 284))
+                    self.screen.blit(self.aboutIconPath, (103, 423))
                     start.print_screen(self, "关于", (220, 430))
                     start.print_screen(self, "设置", (220, 370))
-                    start.print_screen(self, "单人模式",(210,230))
+                    start.print_screen(self, "单人模式", (210, 230))
                     start.print_screen(self, "双人模式", (210, 300))
-                    pygame.draw.rect(self.screen, [200, 0, 0], [00, 40, 500, 70])
+                    pygame.draw.rect(self.screen, [212, 64, 38], [
+                                     00, 40, 500, 70])
                     self.font = pygame.font.Font(
                         "./default.ttf", 40)
                     self.screen.blit(self.font.render(
@@ -669,6 +676,7 @@ class start(object):
                     startPage = True
                 pygame.display.update()
 
+
 if __name__ == '__main__':
     self = programme()
     init.init(self)
@@ -686,4 +694,3 @@ if __name__ == '__main__':
     start.start_graghic.finishPage(self,100,True)
     pygame.display.update()
     time.sleep(2)'''
-    

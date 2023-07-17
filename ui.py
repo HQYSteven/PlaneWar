@@ -81,16 +81,14 @@ class ui(tools):
          * 机身 30,144,255
          * 机翼 131,206,250
         '''
-        pygame.draw.circle(self.screen, self.planeColor_player, [
-            self.player1_x+15, self.player1_y], 5)
         pygame.draw.rect(self.screen, self.planeColor_player, [
-            self.player1_x+10, self.player1_y, 10, 31])
+            self.player1_x+10, self.player1_y, 10, 31],border_radius=3)
         pygame.draw.rect(self.screen, self.wigColor_player, [
-            self.player1_x-2, self.player1_y+15, 12, 10])
+            self.player1_x-2, self.player1_y+15, 12, 10],border_top_left_radius=5)
         pygame.draw.rect(self.screen, self.wigColor_player, [
-            self.player1_x+20, self.player1_y+15, 12, 10])
+            self.player1_x+20, self.player1_y+15, 12, 10],border_top_right_radius=5)
         pygame.draw.rect(self.screen, self.wigColor_player, [
-            self.player1_x+5, self.player1_y+31, 20, 3])
+            self.player1_x+5, self.player1_y+31, 20, 3],border_radius=3)
 
     def enemyAircraft(self, index: int) -> None:
         '''
@@ -102,19 +100,17 @@ class ui(tools):
         '''
 
         pygame.draw.rect(self.screen, self.planeColor_enemy, [
-            self.enemy_x_list[index]+3, self.enemy_y_list[index], 22, 3])
+            self.enemy_x_list[index]+3, self.enemy_y_list[index], 22, 3],border_radius=3)
         pygame.draw.rect(self.screen, self.planeColor_enemy, [
-            self.enemy_x_list[index]+10, self.enemy_y_list[index], 10, 35])
+            self.enemy_x_list[index]+10, self.enemy_y_list[index], 10, 35],border_radius=3)
         pygame.draw.rect(self.screen, self.wigColor_enemy, [
             self.enemy_x_list[index]-2, self.enemy_y_list[index]+10, 12, 10])
         pygame.draw.rect(self.screen, self.wigColor_enemy, [
             self.enemy_x_list[index]+20, self.enemy_y_list[index]+10, 12, 10])
-        pygame.draw.circle(self.screen, self.planeColor_enemy, [
-            self.enemy_x_list[index]+15, self.enemy_y_list[index]+35], 5)
         pygame.draw.rect(self.screen, [0, 0, 0], [
-            self.enemy_x_list[index]+3, self.enemy_y_list[index]+2, 22, 3])
+            self.enemy_x_list[index]+3, self.enemy_y_list[index]+2, 22, 3],border_radius=3)
         pygame.draw.rect(self.screen, [255, 0, 0], [
-            self.enemy_x_list[index]+2, self.enemy_y_list[index]-self.movAmount-3, int(self.enemyLifeList[index]/4), 3])
+            self.enemy_x_list[index]+2, self.enemy_y_list[index]-self.movAmount-3, int(self.enemyLifeList[index]/4), 3],border_radius=3)
 
     def player2Aircraft(self,) -> None:
         '''
@@ -123,18 +119,16 @@ class ui(tools):
          * 机身 30,144,255
          * 机翼 131,206,250
         '''
-        pygame.draw.circle(self.screen, self.planeColor_player, [
-            self.player2_x+15, self.player2_y], 5)
         pygame.draw.rect(self.screen, self.planeColor_player, [
-            self.player2_x+10, self.player2_y, 10, 31])
+            self.player2_x+10, self.player2_y, 10, 31],border_radius=3)
         pygame.draw.rect(self.screen, self.wigColor_player, [
-            self.player2_x-2, self.player2_y+15, 12, 10])
+            self.player2_x-2, self.player2_y+15, 12, 10],border_radius=3)
         pygame.draw.rect(self.screen, self.wigColor_player, [
-            self.player2_x+20, self.player2_y+15, 12, 10])
+            self.player2_x+20, self.player2_y+15, 12, 10],border_radius=3)
         pygame.draw.rect(self.screen, self.wigColor_player, [
-            self.player2_x+5, self.player2_y+31, 20, 3])
+            self.player2_x+5, self.player2_y+31, 20, 3],border_radius=3)
         pygame.draw.rect(self.screen, [255, 0, 0], [
-            self.player2_x, self.player2_y+39, int(self.player2_life/3), 2])
+            self.player2_x, self.player2_y+39, int(self.player2_life/3), 2],border_radius=3)
 
     def medicine(self, index: int) -> None:
         '''
@@ -142,11 +136,11 @@ class ui(tools):
         This fuc draws the medicines.\n
         '''
         pygame.draw.rect(self.screen, [255, 255, 255], [
-            self.medicineX[index], self.medicineY[index], 20, 20])
+            self.medicineX[index], self.medicineY[index], 20, 20],border_radius=5)
         pygame.draw.rect(self.screen, [255, 0, 0], [
-            self.medicineX[index]+2, self.medicineY[index]+8, 16, 4])
+            self.medicineX[index]+2, self.medicineY[index]+8, 16, 4],border_radius=3)
         pygame.draw.rect(self.screen, [255, 0, 0], [
-            self.medicineX[index]+8, self.medicineY[index]+3, 4, 16])
+            self.medicineX[index]+8, self.medicineY[index]+3, 4, 16],border_radius=3)
 
     def switchAnimation(self,) -> None:
         '''
@@ -181,7 +175,7 @@ class ui(tools):
         # draw the string.
         try:
             pygame.draw.rect(self.screen, self.AttackColor, [
-                self.attackStringX[index], self.attackStringY[index]+10, width, 10])
+                self.attackStringX[index], self.attackStringY[index]+10, width, 10],border_radius=3)
         except:
             pass
 
@@ -196,10 +190,10 @@ class ui(tools):
         text = self.font.render(
             f"{self.score}", True, "white")
         self.screen.blit(text, (30, 60))
-        pygame.draw.rect(self.screen, [255, 0, 0], [
-            280, 62, self.player1_life, 20])
-        pygame.draw.rect(self.screen, [200, 200, 200], [
-            460, 62, 10, 20])
+        pygame.draw.rect(self.screen, self.bloodColor, [
+            280, 62, self.player1_life, 20],border_radius=5)
+        pygame.draw.rect(self.screen, self.bulletIconColor, [
+            460, 62, 10, 20],border_radius=5)
         text = self.font.render(
             f"{self.player1_bullet}", True, "white")
         self.screen.blit(text, (410, 60))

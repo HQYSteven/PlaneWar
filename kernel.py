@@ -34,11 +34,10 @@ class programme():
         '''
         ui.switchAnimation(self)
     def topbar(self, string: str = ""):
-        pygame.draw.rect(self.screen, [255, 0, 0], [0, 0, 500, 50])
+        pygame.draw.rect(self.screen, [25,25,25], [0, 0, 500, 50])
         programme.print_screen(
-            self, string, pos=(230, 10), color='white')
-        programme.print_screen(self, "<", pos=(10, 10), color='white')
-
+            self, string, pos=(230, 10), color='#FBFBFB')
+        self.screen.blit(self.backIconPath,(10,10))
     def bind_topbar(self,x,y,event):
         '''
         detect if the button has benn pressed
@@ -70,6 +69,10 @@ class programme():
             for message in self.message:
                 if message == 'egg':
                     egg.egg_graphic(self)
+                if message == 'shortcut':
+                    del self.message[self.message.index(message)]
+                    print("TRue")
+                    graphic_update.shortcut_graghic(self)
                 # refresh the index
                 index += 1
             # initlize the whole screen
@@ -91,6 +94,7 @@ class programme():
             graphic_update.stone(self,)
             # draw enemies
             graphic_update.enemy(self,)
+            
             # decide if there is need to blur the backgrounds
             if self.blur:
                 graphic_update.blurdock(self,)
@@ -111,6 +115,7 @@ class programme():
         @ player2: Tell the kernel if there is player2 or not
         """
         # record the loop times
+        pygame.key.set_repeat(3, 25)
         times = 0
         self.player2 = player2
         # start graghic service
@@ -143,6 +148,7 @@ class programme():
                 # graghic events
                 if event.type == pygame.QUIT:
                     self.running = False
+                    return self.score,"lose"
                 # 监测是否键盘事件发生
                 if event.type == pygame.KEYDOWN:
                     bind.keyEvent(self, event)

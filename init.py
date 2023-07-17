@@ -25,7 +25,7 @@ class init(programme):
         master.color = 0
         
         musics = music(tools.file.config("audio"))
-        musics.play()
+        #musics.play()
         # 运行指示量
         master.blur = True
         master.running = True
@@ -51,26 +51,32 @@ class init(programme):
          * A fuc used to init gui modules\n
          * Such as font,the first enemy,start screen,set repeat.
         '''
+        
         text = master.font.render(f"100", True, 'white')
         master.screen.blit(text, (250, 10))
         # 添加游戏初始的敌人的坐标
         Append.appendEnemy()
         pygame.display.set_caption(f"Plane War [{master.version}]")
         # 在屏幕上绘制敌人s
-        pygame.key.set_repeat(3, tools.file.config("repeat"))
+        pygame.key.set_repeat(3, 25)
 
     def init_modules(master,):
         '''
         @ master: The class you want to init 
          * A fuc used to init pygame and music modules\n
         '''
+        master.settingIconPath = pygame.image.load(tools.file.config("settingIconPath"),)
+        master.backIconPath = pygame.image.load(tools.file.config("backIconPath"),)
+        master.singleIconPath = pygame.image.load(tools.file.config("singleIconPath"),)
+        master.doubleIconPath = pygame.image.load(tools.file.config("doubleIconPath"),)
+        master.aboutIconPath = pygame.image.load(tools.file.config("aboutIconPath"),)
         master.music = True
         master.player2 = False
         # init pygame
         pygame.init()
         # init pygame music player
         pygame.mixer.init()
-        pygame.key.set_repeat(3, tools.file.config("repeat"))
+        #pygame.key.set_repeat(5, tools.file.config("repeat"))
     def init_medicine(master,):
         '''
         @ master: The class you want to init 
@@ -83,6 +89,7 @@ class init(programme):
         master.medicineAmount = tools.file.config("medicineAmount")
         master.medicineX = []
         master.medicineY = []
+        master.graghicCommand = []
 
     def init_stars(master,):
         '''
@@ -200,6 +207,9 @@ class init(programme):
          * The font
         '''
         master.message = []
+        master.buttonColor= tools.file.config("buttonColor")
+        master.bloodColor = [255,0,0]
+        master.bulletIconColor = [100,100,100]
         master.font = pygame.font.Font(
             tools.file.config("fontPath"), tools.file.config("fontSize"))
         master.screen = pygame.display.set_mode((tools.file.config("screenWidth"),tools.file.config("screenHeight")))

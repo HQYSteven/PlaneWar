@@ -73,6 +73,12 @@ class blur(object):
                     g = 255
                 if b > 255:
                     b = 255
+                if r < 0:
+                    r = 0
+                if g < 0:
+                    g = 0
+                if b < 0:
+                    b = 0
                 # save the lists
                 self.blurList[before_add] = [r, g, b]
                 self.blurList[before_min] = [r, g, b]
@@ -100,6 +106,12 @@ class blur(object):
                     g = 255
                 if b > 255:
                     b = 255
+                if r < 0:
+                    r = 0
+                if g < 0:
+                    g = 0
+                if b < 0:
+                    b = 0
                 index += 1
                 x += 1
             if self.length >= self.width and self.length < self.length - self.width:
@@ -137,6 +149,7 @@ class blur(object):
         # init the nums
         x = xstart
         y = ystart
+        width += xstart
         for rgba in self.blurList:
             # read the inputed list and print it.
             if x == width:
