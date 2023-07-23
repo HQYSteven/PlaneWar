@@ -1,8 +1,0 @@
-本程序是由黄齐宇在2023年编写的一个小游戏。每个
-人都可以复制和分发本许可文件的逐字副本，但不允
-许更改它。2023 HQY版权所有。感谢您的使用！
-This programme is written by Qiyu Huang in 2023.
-Everyone is permitted to copy and distribute ve-
-rbatim copies of this license document,but chan-
-ging it is not allowed.2023 HQY all right rese-
-rved.Thank you for using!
