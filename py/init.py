@@ -39,7 +39,7 @@ class init(programme):
         master.egg = False
         master.color = 0
         
-        musics = music(tools.file.config("audio"))
+        musics = music(tools.file.sourceConfig("audio"))
         #musics.play()
         # 运行指示量
         master.blur = False
@@ -91,11 +91,11 @@ class init(programme):
         @ master: The class you want to init 
          * A fuc used to init pygame and music modules\n
         '''
-        master.settingIconPath = pygame.image.load(tools.file.config("settingIconPath"),)
-        master.backIconPath = pygame.image.load(tools.file.config("backIconPath"),)
-        master.singleIconPath = pygame.image.load(tools.file.config("singleIconPath"),)
-        master.doubleIconPath = pygame.image.load(tools.file.config("doubleIconPath"),)
-        master.aboutIconPath = pygame.image.load(tools.file.config("aboutIconPath"),)
+        master.settingIconPath = pygame.image.load(tools.file.sourceConfig("settingIconPath"),)
+        master.backIconPath = pygame.image.load(tools.file.sourceConfig("backIconPath"),)
+        master.singleIconPath = pygame.image.load(tools.file.sourceConfig("singleIconPath"),)
+        master.doubleIconPath = pygame.image.load(tools.file.sourceConfig("doubleIconPath"),)
+        master.aboutIconPath = pygame.image.load(tools.file.sourceConfig("aboutIconPath"),)
         master.music = True
         master.player2 = False
         # init pygame
@@ -139,7 +139,7 @@ class init(programme):
          * players' attack strings' lists\n
          * the color of players' attack strings'. 
         '''
-        master.AttackColor = tools.file.config("attackColor")
+        master.AttackColor = tools.file.uiConfig("attackColor")
         master.attackStringX = []
         master.attackStringY = []
 
@@ -167,10 +167,10 @@ class init(programme):
         master.artillery = tools.file.config("artillery")
         master.Xrate = tools.file.config("xray")
         master.missile = tools.file.config("missile")
-        master.color1 = tools.file.config("color1")
-        master.color2 = tools.file.config("color2")
-        master.color3 = tools.file.config("color3")
-        master.color4 = tools.file.config("color4")
+        master.color1 = tools.file.uiConfig("color1")
+        master.color2 = tools.file.uiConfig("color2")
+        master.color3 = tools.file.uiConfig("color3")
+        master.color4 = tools.file.uiConfig("color4")
         master.stringMov = tools.file.config("stringMov")
 
     def init_egg(master,):
@@ -215,10 +215,10 @@ class init(programme):
          * The speed of the players
         '''
         master.mov = False
-        master.planeColor_player = tools.file.config("planeColor_player")
-        master.wigColor_player = tools.file.config("wigColor_player")
-        master.planeColor_enemy = tools.file.config("planeColor_enemy")
-        master.wigColor_enemy = tools.file.config("wigColor_enemy")
+        master.planeColor_player = tools.file.uiConfig("planeColor_player")
+        master.wigColor_player = tools.file.uiConfig("wigColor_player")
+        master.planeColor_enemy = tools.file.uiConfig("planeColor_enemy")
+        master.wigColor_enemy = tools.file.uiConfig("wigColor_enemy")
         master.planeAmount = random.randint(10, 30)
         master.speed = 0
 
@@ -233,13 +233,13 @@ class init(programme):
          * The font
         '''
         master.message = []
-        master.buttonColor= tools.file.config("buttonColor")
+        master.buttonColor= tools.file.uiConfig("buttonColor")
         master.bloodColor = [255,0,0]
         master.bulletIconColor = [100,100,100]
-        master.fontPath = tools.file.config("fontPath")
-        master.startPhotoPath = tools.file.config("startPhotoPath")
+        master.fontPath = tools.file.sourceConfig("fontPath")
+        master.startPhotoPath = tools.file.sourceConfig("startPhotoPath")
         master.font = pygame.font.Font(
-            tools.file.config("fontPath"), tools.file.config("fontSize"))
+            tools.file.sourceConfig("fontPath"), tools.file.sourceConfig("fontSize"))
         
         master.screenWidth = tools.file.config("screenWidth")
         master.screenHeight = tools.file.config("screenHeight")
@@ -269,19 +269,19 @@ class init(programme):
          * The list of the strings that players has sent out\n
          * The score of the players
         '''
-        master.fire = tools.file.config("fire")
+        master.fire = tools.file.uiConfig("fire")
         master.playing = True
-        master.player1_life = tools.file.config("player1_life")
-        master.player2_life = tools.file.config("player2_life")
+        master.player1_life = tools.file.configPlayers("player1_life")
+        master.player2_life = tools.file.configPlayers("player2_life")
         master.player2_bullet = master.planeAmount * 20 + 10
         master.player1_bullet = master.planeAmount * 20 + 10
-        master.score = 0
+        master.score = tools.file.configPlayers("score")
         master.attackXList = []
         master.attackYList = []
-        master.player2_x = tools.file.config("player2_x")
-        master.player1_x = tools.file.config("player1_x")
-        master.player1_y = tools.file.config("player1_y")
-        master.player2_y = tools.file.config("player2_y")
+        master.player2_x = tools.file.configPlayers("player2_x")
+        master.player1_x = tools.file.configPlayers("player1_x")
+        master.player1_y = tools.file.configPlayers("player1_y")
+        master.player2_y = tools.file.configPlayers("player2_y")
         master.player1_fuel = 1
         master.frame_player1 = 0
         master.frame_player2 = 0

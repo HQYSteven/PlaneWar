@@ -56,6 +56,39 @@ class tools(object):
             dictionary = json.loads(tools.file.readFile(filePath, 0, 100))
             return dictionary[settingName]
 
+        def configPlayers(settingName: str) -> int:
+            '''
+            @ settingName: The ui setting you want to look up\n
+            This fuc is used to read and return a int.
+            '''
+            dictionary = json.loads(tools.file.readFile(
+                f"./data/players.json", 0, 100))
+            return dictionary[settingName]
+
+        def sourceConfig(settingName: str) -> str:
+            '''
+            @ settingName: The ui setting you want to look up\n
+            This fuc is used to read and return a json object.
+            '''
+            settings = json.loads(tools.file.readFile(
+                "./data/setting.json", 0, 100))
+            sourcePath = settings["themePath"]
+            sourceSettings = json.loads(tools.file.readFile(
+                f"{sourcePath}/sources.json", 0, 100))
+            return sourceSettings[settingName]
+
+        def uiConfig(settingName: str) -> list:
+            '''
+            @ settingName: The ui setting you want to look up\n
+            This fuc is used to read and return a json object.
+            '''
+            settings = json.loads(tools.file.readFile(
+                "./data/setting.json", 0, 100))
+            themePath = settings["themePath"]
+            uiSettings = json.loads(tools.file.readFile(
+                f"{themePath}/ui.json", 0, 100))
+            return uiSettings[settingName]
+
         def write(settingName: str, self, input) -> dict:
 
             self.dictionary[settingName] = input
