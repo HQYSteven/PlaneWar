@@ -47,14 +47,14 @@ class ui(tools):
                 i = 0
                 for i in range(5):
                     self.screen.fill([0, 0, 0])
-                    self.player1_x += i
+                    self.playerxList[0] += i
                     ui.aircraft_1()
                     pygame.display.update()
             if side == 1:
                 i = 0
                 for i in range(5):
                     self.screen.fill([0, 0, 0])
-                    self.player1_x -= i
+                    self.playerxList[0] -= i
                     ui.aircraft_1()
                     pygame.display.update()
         # player2's
@@ -74,7 +74,7 @@ class ui(tools):
                     ui.player2Aircraft()
                     pygame.display.update()
 
-    def aircraft_1(self,) -> None:
+    def aircraft(self,index) -> None:
         '''
         This fuc draws the player1's plane.\n
         Color Values:\n
@@ -82,13 +82,13 @@ class ui(tools):
          * 机翼 131,206,250
         '''
         pygame.draw.rect(self.screen, self.planeColor_player, [
-            self.player1_x+10, self.player1_y, 10, 31],border_radius=3)
+            self.playerxList[index]+10, self.playeryList[index], 10, 31],border_radius=3)
         pygame.draw.rect(self.screen, self.wigColor_player, [
-            self.player1_x-2, self.player1_y+15, 12, 10],border_top_left_radius=5)
+            self.playerxList[index]-2, self.playeryList[index]+15, 12, 10],border_top_left_radius=5)
         pygame.draw.rect(self.screen, self.wigColor_player, [
-            self.player1_x+20, self.player1_y+15, 12, 10],border_top_right_radius=5)
+            self.playerxList[index]+20, self.playeryList[index]+15, 12, 10],border_top_right_radius=5)
         pygame.draw.rect(self.screen, self.wigColor_player, [
-            self.player1_x+5, self.player1_y+31, 20, 3],border_radius=3)
+            self.playerxList[index]+5, self.playeryList[index]+31, 20, 3],border_radius=3)
 
     def enemyAircraft(self, index: int) -> None:
         '''
@@ -115,25 +115,7 @@ class ui(tools):
             return 0
         pygame.draw.rect(self.screen, [255, 0, 0], [
             self.enemy_x_list[index]+2, self.enemy_y_list[index]-self.movAmount-3, int(self.enemyLifeList[index]/4), 3],border_radius=3)
-
-    def player2Aircraft(self,) -> None:
-        '''
-        This fuc draws the player2's plane.\n
-        Color Values:\n
-         * 机身 30,144,255
-         * 机翼 131,206,250
-        '''
-        pygame.draw.rect(self.screen, self.planeColor_player, [
-            self.player2_x+10, self.player2_y, 10, 31],border_radius=3)
-        pygame.draw.rect(self.screen, self.wigColor_player, [
-            self.player2_x-2, self.player2_y+15, 12, 10],border_radius=3)
-        pygame.draw.rect(self.screen, self.wigColor_player, [
-            self.player2_x+20, self.player2_y+15, 12, 10],border_radius=3)
-        pygame.draw.rect(self.screen, self.wigColor_player, [
-            self.player2_x+5, self.player2_y+31, 20, 3],border_radius=3)
-        pygame.draw.rect(self.screen, [255, 0, 0], [
-            self.player2_x, self.player2_y+39, int(self.player2_life/3), 2],border_radius=3)
-
+        
     def medicine(self, index: int) -> None:
         '''
         @ index: The index of the medicine in the list.\n

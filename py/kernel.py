@@ -1,13 +1,15 @@
-import pygame
-from update import update
-from ui import ui
-from graphic import graphic_update
-import time
-from bind import bind
 import _thread
-from egg import egg
+import time
+
+import pygame
 from Askings import ask
+from bind import bind
+from egg import egg
+from graphic import graphic_update
 from save import save
+from ui import ui
+from update import update
+
 '''
 This is the main programme of the game
 You can call it the kernel of the game.
@@ -74,15 +76,11 @@ class programme():
                     egg.egg_graphic(self)
                 if message == 'shortcut':
                     del self.message[self.message.index(message)]
-                    print("TRue")
                     graphic_update.shortcut_graghic(self)
                 # refresh the index
                 index += 1
             # initlize the whole screen
             self.screen.fill([0, 0, 0])
-            # decide if there is need to draw player2's plane
-            if self.player2:
-                ui.player2Aircraft(self,)
             # draw objects
             graphic_update.string(self,)
             # draw enemies' strings
@@ -106,7 +104,10 @@ class programme():
             # draw the blood dock
             ui.bloodDock(self, 1)
             # draw the player1's plane
-            ui.aircraft_1(self,)
+            index = 0
+            for index in range(len(self.playerxList)-1):
+                ui.aircraft(self,index)
+            ui.aircraft(self,index)
             programme.topbar(self,"Plane War")
             # update the whole screen
             pygame.display.update()
@@ -121,22 +122,25 @@ class programme():
         pygame.key.set_repeat(3, 25)
         times = 0
         self.player2 = player2
+        if player2:
+            self.playerxList.append(260)
+            self.playeryList.append(455)
         # start graghic service
         self.runningP = True
         # start the main loop
+        index = 0
+        min = 90
+        self.screenWidth = pygame.display.get_window_size()[0]
+        self.screenHeight = pygame.display.get_window_size()[1]
+        for index in range(len(self.playerxList)-1):
+            self.playeryList[index] = self.screenHeight - min
+            min -=45
         while self.runningP:
-            # record the screen width
-            self.screenWidth = pygame.display.get_window_size()[0]
-            self.screenHeight = pygame.display.get_window_size()[1]
             # decide if there is need to quit
             if not self.running:
                 pygame.quit()
                 break
             # decide the player2's coordinates
-            if self.player2:
-                self.player2_y = self.screenHeight - 45
-            self.player1_y = self.screenHeight - 90
-            
             # 每次循环停止1/fps秒，用于减轻CPU压力
             time.sleep(1/self.fps)
             times += 1

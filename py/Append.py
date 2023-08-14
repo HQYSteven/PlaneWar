@@ -13,9 +13,6 @@ import random
  *
 '''
 
-''''
-别动,ui,检测,update模块都在这里
-'''
 
 
 class Append(object):
@@ -36,10 +33,10 @@ class Append(object):
         '''
         This fuction appends enemies
         '''
-        num = random.randint(0, self.screenWidth-30)
-        self.enemy_x_list.append(num)
+        coordinate = random.randint(0, 480)
+        self.enemy_x_list.append(coordinate)
         self.enemy_y_list.append(0)
-        self.otherAttack_x.append(num+13)
+        self.otherAttack_x.append(coordinate+13)
         self.otherAttack_y.append(10)
         self.enemyLifeList.append(100)
         self.planeAmount -= 1
@@ -48,11 +45,9 @@ class Append(object):
         '''
         This fuction appends strings that can hurt players
         '''
-        if player:
-            self.attackStringX.append(self.player1_x+13)
-            self.attackStringY.append(self.screenHeight - 100)
-        else:
-            self.attackStringX.append(self.player2_x+13)
-            self.attackStringY.append(self.screenHeight - 80)
+        
+        self.attackStringX.append(self.playerxList[0]+13)
+        self.attackStringY.append(self.screenHeight - 100)
+        
 
 #################################################################

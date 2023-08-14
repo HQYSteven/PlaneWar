@@ -6,7 +6,7 @@ class egg(object):
     def bind(self):
         if self.distance > 0:
             self.distance -= self.speed
-        self.player1_y = 380-int(self.distance)
+        self.playeryList[0] = 380-int(self.distance)
 
     def grvaity(self, color):
         text = self.font.render(
@@ -47,32 +47,32 @@ class egg(object):
         '''
         
         pygame.draw.rect(self.screen, self.planeColor_player, [
-            self.player1_x+10, self.player1_y, 20, 80]
+            self.playerxList[0]+10, self.playeryList[0], 20, 80]
             ,border_radius=10)
         pygame.draw.rect(self.screen, self.wigColor_player, [
-            self.player1_x-32, self.player1_y+25, 42, 25],border_radius=10)
+            self.playerxList[0]-32, self.playeryList[0]+25, 42, 25],border_radius=10)
         pygame.draw.rect(self.screen, self.wigColor_player, [
-            self.player1_x+30, self.player1_y+25, 42, 25],border_right_radius=10)
+            self.playerxList[0]+30, self.playeryList[0]+25, 42, 25],border_top_right_radius=10)
         pygame.draw.rect(self.screen, self.wigColor_player, [
-            self.player1_x+2, self.player1_y+80, 35, 5],border_left_radius=10)
+            self.playerxList[0]+2, self.playeryList[0]+80, 35, 5],border_left_radius=10)
         pygame.draw.polygon(self.screen, self.planeColor_player, [(
-            self.player1_x-10, self.player1_y+25), (self.player1_x-23, self.player1_y+25),
-            (self.player1_x-17, self.player1_y+15)])
+            self.playerxList[0]-10, self.playeryList[0]+25), (self.playerxList[0]-23, self.playeryList[0]+25),
+            (self.playerxList[0]-17, self.playeryList[0]+15)])
         pygame.draw.polygon(self.screen, self.planeColor_player, [(
-            self.player1_x+43, self.player1_y+25), (self.player1_x+56, self.player1_y+25),
-            (self.player1_x+50, self.player1_y+15)])
+            self.playerxList[0]+43, self.playeryList[0]+25), (self.playerxList[0]+56, self.playeryList[0]+25),
+            (self.playerxList[0]+50, self.playeryList[0]+15)])
         pygame.draw.polygon(self.screen, self.planeColor_player, [(
-            self.player1_x+43, self.player1_y+25), (self.player1_x+56, self.player1_y+25),
-            (self.player1_x+50, self.player1_y+15)])
+            self.playerxList[0]+43, self.playeryList[0]+25), (self.playerxList[0]+56, self.playeryList[0]+25),
+            (self.playerxList[0]+50, self.playeryList[0]+15)])
         if self.lostFuel:
             pygame.draw.polygon(self.screen, self.fire, [
-                (self.player1_x+45, self.player1_y +
-                 66), (self.player1_x+55, self.player1_y+66),
-                (self.player1_x+50, self.player1_y+self.length)])
+                (self.playerxList[0]+45, self.playeryList[0] +
+                 66), (self.playerxList[0]+55, self.playeryList[0]+66),
+                (self.playerxList[0]+50, self.playeryList[0]+self.length)])
             pygame.draw.polygon(self.screen, self.fire, [
-                (self.player1_x-15, self.player1_y +
-                 66), (self.player1_x-25, self.player1_y+66),
-                (self.player1_x-20, self.player1_y+self.length)])
+                (self.playerxList[0]-15, self.playeryList[0] +
+                 66), (self.playerxList[0]-25, self.playeryList[0]+66),
+                (self.playerxList[0]-20, self.playeryList[0]+self.length)])
 
     def egg_graphic(self):
 
@@ -92,16 +92,16 @@ class egg(object):
         if colorTimes % 50 == 0 and self.color <= 220:
             self.color += 1
         self.running = True
-        self.player1_y = 50
-        self.player1_x = 230
+        self.playeryList[0] = 50
+        self.playerxList[0] = 230
         loopTimes = 0
         while self.running:
             loopTimes += 1
             time.sleep(0.01)
             egg.bind(self)
             loopTimes = egg.watch_egg(self, loopTimes)
-            if self.player1_y <= 250:
-                self.player1_y = 250
+            if self.playeryList[0] <= 250:
+                self.playeryList[0] = 250
             if self.gravity <= 0:
                 self.gravity = 0
             if self.gravity >= 9.80:
@@ -122,10 +122,10 @@ class egg(object):
                     if self.lostFuel:
                         self.lostFuel = False
 
-                if (self.player1_y == 380 and self.speed <= 3):
+                if (self.playeryList[0] == 380 and self.speed <= 3):
                     self.running = False
                     return self.score,'win'
-                elif (self.player1_y == 380 and self.speed > 3):
+                elif (self.playeryList[0] == 380 and self.speed > 3):
                     self.running = False
                     return self.score,'lose'
                 elif self.distance < 0:

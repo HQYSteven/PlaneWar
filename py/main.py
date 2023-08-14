@@ -425,7 +425,7 @@ class start(object):
         self.font = pygame.font.Font(self.fontPath, 60)
         start.print_screen(self, "Plane War", (100, 100), 'white')
         self.font = pygame.font.Font(self.fontPath, 15)
-        paragraghLists = tools.file.readFile("about.txt", 0, 9)
+        paragraghLists = tools.file.readFile("./data/about.txt", 0, 9)
         pygame.draw.rect(self.screen, [45, 45, 45], [
                          50, 190, 400, 280], border_radius=10)
         plist = []
@@ -444,14 +444,14 @@ class start(object):
         pygame.display.update()
 
         while True:
-            for e in pygame.event.get():
+            for event in pygame.event.get():
                 try:
                     x, y = pygame.mouse.get_pos()
                 except:
                     pass
-                if x > 10 and x < 50 and y > 10 and y < 40 and e.type == pygame.MOUSEBUTTONUP:
+                if x > 10 and x < 50 and y > 10 and y < 40 and event.type == pygame.MOUSEBUTTONUP:
                     return 0
-                if e.type == pygame.QUIT:
+                if event.type == pygame.QUIT:
                     quit()
 
     def kernel(self,) -> bool:
@@ -693,37 +693,39 @@ class start(object):
 
     
 if __name__ == '__main__':
-    inputArg = sys.argv[1]
-    if inputArg == '-e':
-        from editor import editor
-        s = editor()
-        editor.main(s)
-        quit()
-    elif inputArg == '-h' or inputArg == '--help':
-        print('''
-Thank you for using Plane War!
-CLI Commands:
--e            plane war theme editor
--h            help page
-''')
-        quit()
-    elif inputArg == 'start':
-        pass
-    else:
-        print('''
-Thank you for using Plane War!
-add -h to start help page
-''')
-        quit()
-    self = programme()
-    init.init(self)
-    if  start.detect_restores(self):
-        answer=restorer.askRestores(self)
-        if type(answer) == int:
-            print(os.listdir('./save')[answer-1])
-            restoreFile = f"./save/{os.listdir('./save')[answer-1]}"
-            init.restore(self,restoreFile)
-    pygame.display.set_caption(f"Plane War {self.version}")
-    self.screen = pygame.display.set_mode((tools.file.config("screenWidth"),tools.file.config("screenHeight")))
-    self.screen.fill(tools.file.uiConfig("initColor"))
-    start.kernel(self)
+    try:
+        inputArg = sys.argv[1]
+        if inputArg == '-e':
+            from editor import editor
+            s = editor()
+            editor.main(s)
+            quit()
+        elif inputArg == '-h' or inputArg == '--help':
+            print('''
+    Thank you for using Plane War!
+    CLI Commands:
+    -e            plane war theme editor
+    -h            help page
+    ''')
+            quit()
+        elif inputArg == 'start':
+            pass
+        else:
+            print('''
+            Thank you for using Plane War!
+            add -h to start help page
+            ''')
+            quit()
+    except:
+        self = programme()
+        init.init(self)
+        if  start.detect_restores(self):
+            answer=restorer.askRestores(self)
+            if type(answer) == int:
+                print(os.listdir('./save')[answer-1])
+                restoreFile = f"./save/{os.listdir('./save')[answer-1]}"
+                init.restore(self,restoreFile)
+        pygame.display.set_caption(f"Plane War {self.version}")
+        self.screen = pygame.display.set_mode((tools.file.config("screenWidth"),tools.file.config("screenHeight")))
+        self.screen.fill(tools.file.uiConfig("initColor"))
+        start.kernel(self)

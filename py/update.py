@@ -17,12 +17,14 @@ class update():
         """
         update.updateString_bindEnemy(master)
         update.updateString_bindEnemy_shot(master)
-        update.updateString_bindEnemyAttack(master)
-        update.bind_crash(master)
         update.updateString_bindEnemyAttack_mov(master)
         update.updateString_mov(master)
-        update.bind_medicine(master)
-        update.bind_stone(master)
+        index = 0
+        for index in range(len(master.playerxList)):
+            update.bind_crash(master,index)
+            update.updateString_bindEnemyAttack(master,index)
+            update.bind_medicine(master,index)
+            update.bind_stone(master,index)
 
     class judge():
         """
@@ -181,7 +183,7 @@ class update():
                 index_enemy += 1
             index += 1
 
-    def updateString_bindEnemyAttack(self,):
+    def updateString_bindEnemyAttack(self, playerIndex):
         '''
         It binds if the enemies's stings has hurt the players.
         '''
@@ -189,20 +191,13 @@ class update():
         while index >= 0 and index < len(self.otherAttack_x):
             if index < 0 or index >= len(self.otherAttack_x):
                 break
-            if self.player2:
-                if (update.judge.judge(self.otherAttack_x[index], self.otherAttack_y[index], 5, 15, self.player2_x, self.player2_y, 25, 25)):
-                    del self.otherAttack_x[index]
-                    del self.otherAttack_y[index]
-                    self.score -= 10
-                    self.player2_life -= self.hit
-                    index -= 1
             if index < 0 or index >= len(self.otherAttack_x):
                 break
             try:
                 self.otherAttack_y[index]
             except:
                 break
-            if (update.judge.judge(self.otherAttack_x[index], self.otherAttack_y[index], 5, 15, self.player2_x, self.player2_y, 25, 25)):
+            if (update.judge.judge(self.otherAttack_x[index], self.otherAttack_y[index], 5, 15, self.playerxList[playerIndex], self.playeryList[playerIndex], 25, 25)):
                 del self.otherAttack_y[index]
                 self.score -= 10
                 self.player1_life -= self.hit
@@ -211,7 +206,7 @@ class update():
             if index < 0 or index >= len(self.otherAttack_x):
                 break
 
-    def bind_crash(self,):
+    def bind_crash(self, playerIndex):
         '''
         It binds if the enemies has crashed the players.
         '''
@@ -219,7 +214,7 @@ class update():
         while index >= 0 and index < len(self.enemy_x_list):
             if index < 0 and index >= len(self.enemy_x_list):
                 break
-            if (update.judge.judge(self.player1_x, self.player1_y, 50, 50, self.enemy_x_list[index], self.enemy_y_list[index], 50, 50)):
+            if (update.judge.judge(self.playerxList[playerIndex], self.playeryList[playerIndex], 50, 50, self.enemy_x_list[index], self.enemy_y_list[index], 50, 50)):
 
                 self.enemy_y_list[index] += 15
                 del self.enemy_x_list[index]
@@ -233,23 +228,9 @@ class update():
                 self.enemy_x_list[index]
             except:
                 break
-            if ((self.enemy_x_list[index] >= self.player2_x-30 and
-                self.enemy_x_list[index] <= self.player2_x+60)
-                and self.player2 and
-                (
-                self.enemy_y_list[index] >= self.player2_y
-                and self.enemy_y_list[index] <= self.player2_y+60 and self.player2
-            )):
-                del self.enemy_x_list[index]
-                del self.enemy_y_list[index]
-                del self.enemyLifeList[index]
-                self.score -= 20
-                self.player2_life -= self.crash
-                index -= 1
-                self.enemy_y_list[index] += 10
             index += 1
 
-    def bind_medicine(self,):
+    def bind_medicine(self, playerIndex):
         '''
         It binds if the medicine have reached players and cured players
         '''
@@ -258,8 +239,8 @@ class update():
             if index < 0 and index >= len(self.medicineX):
                 break
             self.medicineY[index] += 10
-            if (update.judge.judge(self.player1_x, self.player1_y, 50, 50, self.medicineX[index], self.medicineY[index], 20, 20)
-                ):
+            if (update.judge.judge(self.playerxList[playerIndex], self.playeryList[playerIndex], 50, 50, self.medicineX[index], self.medicineY[index], 20, 20)
+                    ):
                 del self.medicineY[index]
                 del self.medicineX[index]
                 self.player1_life += self.cure
@@ -270,14 +251,9 @@ class update():
                 self.medicineX[index]
             except:
                 break
-            if self.player2 and update.judge.judge(self.player1_x, self.player1_y, 50, 50, self.medicineX[index], self.medicineY[index], 20, 20):
-                del self.medicineY[index]
-                del self.medicineX[index]
-                self.player2_life += self.cure
-                index -= 1
             index += 1
 
-    def bind_stone(self,):
+    def bind_stone(self, playerIndex):
         '''
         It binds the stones if the stone has hurt the players.
         '''
@@ -292,18 +268,13 @@ class update():
                 index -= 1
             if index >= len(self.stoneXList) or index < 0:
                 break
-            if not self.player2:
-                if (update.judge.judge(self.player1_x, self.player1_y, 50, 50, self.stoneXList[index], self.stoneYList[index], 20, 20)):
-                    del self.stoneYList[index]
-                    del self.stoneXList[index]
-                    self.player1_life -= self.stone
-                    index -= 1
-            else:
-                if (update.judge.judge(self.player1_x, self.player1_y, 50, 50, self.stoneXList[index], self.stoneYList[index], 20, 20)):
-                    del self.stoneYList[index]
-                    del self.stoneXList[index]
-                    self.player2_life -= self.stone
-                    index -= 1
+
+            if (update.judge.judge(self.playerxList[playerIndex], self.playeryList[playerIndex], 50, 50, self.stoneXList[index], self.stoneYList[index], 20, 20)):
+                del self.stoneYList[index]
+                del self.stoneXList[index]
+                self.player1_life -= self.stone
+                index -= 1
+
             stringIndex = 0
             while stringIndex >= 0 and stringIndex < len(self.attackStringX):
                 if stringIndex < 0 or stringIndex >= len(self.attackStringX):

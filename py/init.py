@@ -31,6 +31,7 @@ class init(programme):
         master.enemy_y_list = tools.file.config("enemy_y_list",path)
         master.enemyLifeList = tools.file.config("enemyLifeList",path)
         master.planeAmount = tools.file.config("planeAmount",path)
+        
     def init(master):
         '''
         @ master: The class you want to init 
@@ -278,10 +279,8 @@ class init(programme):
         master.score = tools.file.configPlayers("score")
         master.attackXList = []
         master.attackYList = []
-        master.player2_x = tools.file.configPlayers("player2_x")
-        master.player1_x = tools.file.configPlayers("player1_x")
-        master.player1_y = tools.file.configPlayers("player1_y")
-        master.player2_y = tools.file.configPlayers("player2_y")
+        master.playerxList = [tools.file.configPlayers("player1_x")]#,tools.file.configPlayers("player2_x")]
+        master.playeryList = [tools.file.configPlayers("player1_y")]#,tools.file.configPlayers("player2_y")]
         master.player1_fuel = 1
         master.frame_player1 = 0
         master.frame_player2 = 0
