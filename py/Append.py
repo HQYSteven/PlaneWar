@@ -41,12 +41,12 @@ class Append(object):
         self.enemyLifeList.append(100)
         self.planeAmount -= 1
 
-    def appendAttack(self, player=1) -> None:
+    def appendAttack(self, player=0) -> None:
         '''
         This fuction appends strings that can hurt players
         '''
         
-        self.attackStringX.append(self.playerxList[0]+13)
+        self.attackStringX.append(self.playerxList[player]+13)
         self.attackStringY.append(self.screenHeight - 100)
         
 

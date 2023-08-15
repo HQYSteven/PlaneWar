@@ -4,7 +4,7 @@ import random
 
 class update():
     """
-    This class is used to bind every crash\n
+    This class is used to detect every crash\n
     Also,update the moving stars\n
     created in 2022
     """
@@ -15,20 +15,21 @@ class update():
         strings players have sent out\n
         strings enemy have sent out\n
         """
-        update.updateString_bindEnemy(master)
-        update.updateString_bindEnemy_shot(master)
-        update.updateString_bindEnemyAttack_mov(master)
+        update.updateString_detectEnemy(master)
+        update.updateString_detectEnemy_shot(master)
+        update.updateString_detectEnemyAttack_mov(master)
         update.updateString_mov(master)
+        update.move_medicines(master)
         index = 0
         for index in range(len(master.playerxList)):
-            update.bind_crash(master,index)
-            update.updateString_bindEnemyAttack(master,index)
-            update.bind_medicine(master,index)
-            update.bind_stone(master,index)
+            update.detect_crash(master,index)
+            update.updateString_detectEnemyAttack(master,index)
+            update.detect_medicine(master,index)
+            update.detect_stone(master,index)
 
     class judge():
         """
-        This class is used to bind if two objects have crashed\n
+        This class is used to detect if two objects have crashed\n
         created on June 23rd 2023
         """
         def judgeX(object1x: int, object1Width: int,
@@ -77,8 +78,7 @@ class update():
         for i in range(50):
             if self.starYList[indexStar] > self.screenHeight:
                 minAmount += 1
-                del self.starYList[indexStar]
-                del self.starXList[indexStar]
+                del self.starYList[indexStar],self.starXList[indexStar]
                 indexStar -= 1
             indexStar += 1
         self.starYList = self.starYList[:50-minAmount]
@@ -102,12 +102,11 @@ class update():
                 break
             self.attackStringY[index] -= self.stringMov
             if self.attackStringY[index] < -20:
-                del self.attackStringY[index]
-                del self.attackStringX[index]
+                del self.attackStringY[index],self.attackStringX[index]
                 index -= 1
             index += 1
 
-    def updateString_bindEnemy(self,):
+    def updateString_detectEnemy(self,):
         """
         This fuction is used to move the enemy you see and print it.\n
         enemies out of the window will be deleted\n
@@ -119,9 +118,7 @@ class update():
                 break
             self.enemy_y_list[index] += self.movAmount
             if self.enemy_y_list[index] >= self.screenHeight:
-                del self.enemy_y_list[index]
-                del self.enemy_x_list[index]
-                del self.enemyLifeList[index]
+                del self.enemy_y_list[index],self.enemy_x_list[index],self.enemyLifeList[index]
                 index -= 1
                 if self.score > 0:
                     self.score -= 10
@@ -131,164 +128,120 @@ class update():
                 break
             index += 1
 
-    def updateString_bindEnemyAttack_mov(self,):
+    def updateString_detectEnemyAttack_mov(self,):
         """
         This fuction is used to move the enemies' strings you see and print it.\n
         strings out of the window will be deleted\n
         created in 2022,in Poyang
         """
         index = 0
-        while index < len(self.otherAttack_x):
-            if index < 0 or index > len(self.otherAttack_x):
-                break
+        min = 0
+        while index < len(self.otherAttack_x)-1:
             try:
-                self.otherAttack_y[index]
+                self.otherAttack_y[index+min] += self.stringMov+1
             except:
-                return
-            self.otherAttack_y[index] += self.stringMov+2
-            if self.otherAttack_y[index] > self.screenHeight:
-                del self.otherAttack_y[index]
-                del self.otherAttack_x[index]
-                index -= 1
+                break
+            if self.otherAttack_y[index+min] >= 500:
+                del self.otherAttack_x[index+min],self.otherAttack_y[index+min]
+                min -= 1
             index += 1
 
-    def updateString_bindEnemy_shot(self,):
+    def updateString_detectEnemy_shot(self,):
         '''
-        It binds if the enemies has been shot.
+        It detects if the enemies has been shot.
         '''
         index = 0
+        min_enemy = 0
+        min = 0
         while index < len(self.attackStringX):
             index_enemy = 0
-            if index > len(self.attackStringX) or index < 0:
-                break
             while index_enemy < len(self.enemy_x_list):
-                if index_enemy > len(self.enemy_x_list) or index_enemy < 0:
-                    break
-                if index > len(self.attackStringX) or index < 0:
-                    break
-                if (update.judge.judge(self.attackStringX[index], self.attackStringY[index], 5, 15, self.enemy_x_list[index_enemy], self.enemy_y_list[index_enemy], 25, 25)):
-                    self.attackStringY[index] += self.stringMov
-                    self.enemyLifeList[index_enemy] -= 20
-                    del self.attackStringX[index]
-                    del self.attackStringY[index]
-                    index -= 1
-                    self.enemyLifeList[index_enemy] -= self.attack
-                    if self.enemyLifeList[index_enemy] <= 0:
-                        self.enemy_y_list[index_enemy] += self.movAmount
-                        del self.enemy_x_list[index_enemy]
-                        del self.enemy_y_list[index_enemy]
-                        del self.enemyLifeList[index_enemy]
-                        index_enemy -= 1
+                if (update.judge.judge(self.attackStringX[index+min], self.attackStringY[index+min], 5, 15, self.enemy_x_list[index_enemy+min_enemy], self.enemy_y_list[index_enemy+min_enemy], 25, 25)):
+                    
+                    del self.attackStringX[index+min] ,self.attackStringY[index+min]
+                    min -= 1
+                    self.enemyLifeList[index_enemy+min_enemy] -= self.attack
+                    if self.enemyLifeList[index_enemy+min_enemy] -20 <= 0:
+                        del self.enemy_x_list[index_enemy+min_enemy],self.enemy_y_list[index_enemy+min_enemy],self.enemyLifeList[index_enemy+min_enemy]
+                        min_enemy -= 1
                         self.score += 10
                 index_enemy += 1
             index += 1
 
-    def updateString_bindEnemyAttack(self, playerIndex):
+    def updateString_detectEnemyAttack(self, playerIndex):
         '''
-        It binds if the enemies's stings has hurt the players.
+        It detects if the enemies's stings has hurt the players.
         '''
         index = 0
-        while index >= 0 and index < len(self.otherAttack_x):
-            if index < 0 or index >= len(self.otherAttack_x):
-                break
-            if index < 0 or index >= len(self.otherAttack_x):
-                break
-            try:
-                self.otherAttack_y[index]
-            except:
-                break
-            if (update.judge.judge(self.otherAttack_x[index], self.otherAttack_y[index], 5, 15, self.playerxList[playerIndex], self.playeryList[playerIndex], 25, 25)):
-                del self.otherAttack_y[index]
+        min = 0
+        while index >= 0 and index < len(self.otherAttack_x)-1:
+            if (update.judge.judge(self.otherAttack_x[index+min], self.otherAttack_y[index+min], 5, 15, self.playerxList[playerIndex], self.playeryList[playerIndex], 25, 25)):
+                del self.otherAttack_y[index+min],self.otherAttack_x[index+min]
                 self.score -= 10
                 self.player1_life -= self.hit
-                index -= 1
+                min -=1
             index += 1
-            if index < 0 or index >= len(self.otherAttack_x):
-                break
 
-    def bind_crash(self, playerIndex):
+    def detect_crash(self, playerIndex):
         '''
-        It binds if the enemies has crashed the players.
+        It detects if the enemies has crashed the players.
         '''
         index = 0
-        while index >= 0 and index < len(self.enemy_x_list):
-            if index < 0 and index >= len(self.enemy_x_list):
-                break
-            if (update.judge.judge(self.playerxList[playerIndex], self.playeryList[playerIndex], 50, 50, self.enemy_x_list[index], self.enemy_y_list[index], 50, 50)):
-
-                self.enemy_y_list[index] += 15
-                del self.enemy_x_list[index]
-                del self.enemy_y_list[index]
-                del self.enemyLifeList[index]
+        min = 0
+        while index >= 0 and index < len(self.enemy_x_list)-1:
+            if (update.judge.judge(self.playerxList[playerIndex], self.playeryList[playerIndex], 50, 50, self.enemy_x_list[index+min], self.enemy_y_list[index+min], 50, 50)):
+                self.enemy_y_list[index+min] += 15
+                del self.enemy_x_list[index+min],self.enemyLifeList[index+min],self.enemy_y_list[index+min],
                 self.score -= 10
-                del self.enemyLifeList[index]
                 self.player1_life -= self.crash
-                index -= 1
-            try:
-                self.enemy_x_list[index]
-            except:
-                break
+                min -=1
             index += 1
 
-    def bind_medicine(self, playerIndex):
+    def detect_medicine(self, playerIndex):
         '''
-        It binds if the medicine have reached players and cured players
+        It detects if the medicine have reached players and cured players
         '''
+        index = 0
+        min = 0
+        while index >= 0 and index < len(self.medicineX)-1:
+            if (update.judge.judge(self.playerxList[playerIndex], self.playeryList[playerIndex], 50, 50, self.medicineX[index+min], self.medicineY[index+min], 20, 20)
+                    ):
+                del self.medicineY[index+min],self.medicineX[index+min]
+                self.player1_life += self.cure
+                min -= 1
+            index += 1
+    def move_medicines(self):
         index = 0
         while index >= 0 and index < len(self.medicineX):
-            if index < 0 and index >= len(self.medicineX):
-                break
             self.medicineY[index] += 10
-            if (update.judge.judge(self.playerxList[playerIndex], self.playeryList[playerIndex], 50, 50, self.medicineX[index], self.medicineY[index], 20, 20)
-                    ):
-                del self.medicineY[index]
-                del self.medicineX[index]
-                self.player1_life += self.cure
-                index -= 1
-            if index < 0 and index >= len(self.medicineX):
-                break
-            try:
-                self.medicineX[index]
-            except:
-                break
-            index += 1
-
-    def bind_stone(self, playerIndex):
-        '''
-        It binds the stones if the stone has hurt the players.
-        '''
+            index +=1
+    def move_stones(self):
         index = 0
         while index < len(self.stoneXList) and index >= 0:
-            if index >= len(self.stoneXList) or index < 0:
-                break
             self.stoneYList[index] += 15
-            if self.stoneYList[index] >= self.screenHeight:
-                del self.stoneYList[index]
-                del self.stoneXList[index]
-                index -= 1
-            if index >= len(self.stoneXList) or index < 0:
-                break
+            index +=1
+    def detect_stone(self, playerIndex):
+        '''
+        It detects the stones if the stone has hurt the players.
+        '''
+        index = 0
+        min = 0
+        min_string = 0
+        while index < len(self.stoneXList) and index >= 0:
+            if self.stoneYList[index+min] >= self.screenHeight:
+                del self.stoneYList[index+min],self.stoneXList[index+min]
+                min -= 1
 
-            if (update.judge.judge(self.playerxList[playerIndex], self.playeryList[playerIndex], 50, 50, self.stoneXList[index], self.stoneYList[index], 20, 20)):
-                del self.stoneYList[index]
-                del self.stoneXList[index]
+            if (update.judge.judge(self.playerxList[playerIndex], self.playeryList[playerIndex], 50, 50, self.stoneXList[index+min], self.stoneYList[index+min], 20, 20)):
+                del self.stoneYList[index+min],self.stoneXList[index+min]
                 self.player1_life -= self.stone
-                index -= 1
-
+                min -= 1
             stringIndex = 0
             while stringIndex >= 0 and stringIndex < len(self.attackStringX):
-                if stringIndex < 0 or stringIndex >= len(self.attackStringX):
-                    break
-                if index >= len(self.stoneXList) or index < 0:
-                    break
-                if self.stoneXList[index] - 3 < self.attackStringX[stringIndex] and self.stoneXList[index]+50 > self.attackStringX[stringIndex] and self.stoneYList[index] < self.attackStringY[stringIndex] and self.stoneYList[index]+20 > self.attackStringY[stringIndex]:
-                    del self.stoneXList[index]
-                    del self.stoneYList[index]
-                    self.attackStringY[stringIndex] += 10
-                    del self.attackStringX[stringIndex]
-                    del self.attackStringY[stringIndex]
-                    index -= 1
-                    stringIndex -= 1
+                if (update.judge.judge(self.stoneXList[index+min],self.stoneYList[index+min],20,20,self.attackStringX[stringIndex+min_string],self.attackStringY[stringIndex+min_string],5,20)):
+                    del self.stoneXList[index+min],self.stoneYList[index+min],self.attackStringX[stringIndex+min_string],self.attackStringY[stringIndex+min_string]
+                    min -= 1
+                    min_string -= 1
                     self.score += 10
                 stringIndex += 1
             index += 1

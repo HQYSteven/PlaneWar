@@ -279,11 +279,13 @@ class init(programme):
         master.score = tools.file.configPlayers("score")
         master.attackXList = []
         master.attackYList = []
-        master.playerxList = [tools.file.configPlayers("player1_x")]#,tools.file.configPlayers("player2_x")]
-        master.playeryList = [tools.file.configPlayers("player1_y")]#,tools.file.configPlayers("player2_y")]
+        master.playerxList = [tools.file.configPlayers("player1_x")]
+        master.playeryList = [tools.file.configPlayers("player1_y")]
         master.player1_fuel = 1
+        master.control = 0
         master.frame_player1 = 0
         master.frame_player2 = 0
+        master.wigman = False
 
     def init_fps(master, fps=15):
         '''
