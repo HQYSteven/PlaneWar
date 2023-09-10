@@ -1,0 +1,13 @@
+{
+    "fontPath": "./themes/default/default.ttf",
+    "fontSize": 15,
+    "audio": "./themes/default/audio.mp3",
+    "settingIconPath": "./themes/default/ic_public_settings_filled.png",
+    "singleIconPath": "./themes/default/single.png",
+    "doubleIconPath": "./themes/default/double.png",
+    "startPhotoPath":"./themes/default/startPhoto.png",
+    "aboutIconPath": "./themes/default/ic_public_detail.png",
+    "backIconPath": "./themes/default/back.png",
+    "switch_on":"./themes/default/switch_on.png",
+    "switch_off":"./themes/default/switch_on.png"
+}

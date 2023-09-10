@@ -1,0 +1,59 @@
+{
+"attackColor":[0,255,255],
+
+    "color1": [
+        20,
+        255,
+        255
+    ],
+    "color2": [
+        30,
+        144,
+        255
+    ],
+    "color3": [
+        0,
+        0,
+        139
+    ],
+    "color4": [
+        255,
+        20,
+        147
+    ],
+    "planeColor_player": [
+        30,
+        144,
+        255
+    ],
+    "wigColor_player": [
+        131,
+        206,
+        250
+    ],
+    "planeColor_enemy": [
+        192,
+        192,
+        192
+    ],
+    "wigColor_enemy": [
+        178,
+        34,
+        34
+    ],
+    "buttonColor": [
+        76,
+        76,
+        79
+    ],
+    "initColor": [
+        0,
+        0,
+        0
+    ],
+    "fire": [
+        255,
+        0,
+        0
+    ]
+}

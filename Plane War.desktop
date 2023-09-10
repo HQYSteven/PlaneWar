@@ -1,0 +1,12 @@
+[Desktop Entry]double
+Categories=Application;Utility;
+Encoding=UTF-8
+Exec=/usr/bin/planeWar
+Icon=apps.com.music
+Name=Rekols Monitor
+Name[zh_CN]=Plane War
+Name[zh_TW]=Plane War
+StartupNotify=false
+Terminal=false
+Type=Application
+X-MultipleArgs=false
